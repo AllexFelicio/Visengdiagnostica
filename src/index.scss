@@ -1,0 +1,23 @@
+/* src/index.scss */
+html {
+  scroll-behavior: smooth;
+}
+
+@import './styles/variables';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #e53935;
+  --font-sans: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #000;   /* fundo preto */
+  color: #fff;        /* texto branco */
+}

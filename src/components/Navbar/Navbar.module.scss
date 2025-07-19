@@ -1,0 +1,57 @@
+/* Navbar.module.scss */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: transparent;  /* transparente no topo */
+  box-shadow: none;
+}
+
+.scrolled {
+  background-color: rgba(0, 0, 0, 0.85); /* aparece ao rolar */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 48px;
+  width: auto;
+}
+
+.navLinks {
+  margin-left: auto;
+  display: flex;
+  gap: 2rem;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.toggle {
+  background: none;
+  border: none;
+  color: #fff;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}

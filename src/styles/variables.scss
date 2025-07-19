@@ -1,0 +1,20 @@
+// src/styles/_variables.scss
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px
+);
+
+/// Mixin para facilitar media queries
+@mixin respond-to($point) {
+  $size: map-get($breakpoints, $point);
+
+  @if $size {
+    @media (min-width: $size) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$point}` não encontrado em $breakpoints.";
+  }
+}
