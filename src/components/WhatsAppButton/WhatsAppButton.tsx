@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './WhatsAppButton.module.scss'
 import { FaWhatsapp } from 'react-icons/fa'
 

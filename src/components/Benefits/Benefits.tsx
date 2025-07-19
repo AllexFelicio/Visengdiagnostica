@@ -1,5 +1,3 @@
-// src/components/Benefits/Benefits.tsx
-import React from 'react'
 import styles from './Benefits.module.scss'
 
 const items = [
