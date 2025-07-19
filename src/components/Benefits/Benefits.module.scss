@@ -4,53 +4,63 @@
   background: #000;
   color: #fff;
   padding: 4rem 2rem;
-  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .title {
   font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
-.subtitle {
-  font-size: 1.125rem;
+.intro {
+  text-align: center;
   color: #ccc;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
 }
 
-.benefits {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-
-  @include respond-to(md) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include respond-to(lg) {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.accordion {
+  border-top: 1px solid #333;
 }
 
-.card {
-  background: #111;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  text-align: left;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.item {
+  border-bottom: 1px solid #333;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  cursor: pointer;
 
   h3 {
     font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    color: #fff;
+    margin: 0;
   }
+
+  .icon {
+    transition: transform 0.3s ease;
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+  padding-left: 1rem;
+
+  &.open {
+    max-height: 200px; /* ajuste conforme o conteúdo */
+  }
+
   p {
-    font-size: 0.95rem;
-    color: #ddd;
-    line-height: 1.4;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.6;
   }
 }
