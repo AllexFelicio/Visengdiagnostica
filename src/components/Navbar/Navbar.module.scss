@@ -7,12 +7,12 @@
   width: 100%;
   z-index: 1000;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: transparent;  /* transparente no topo */
+  background-color: transparent;
   box-shadow: none;
 }
 
 .scrolled {
-  background-color: rgba(0, 0, 0, 0.85); /* aparece ao rolar */
+  background-color: rgba(0, 0, 0, 0.85);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -29,9 +29,10 @@
   width: auto;
 }
 
+/* Nav horizontal: só em desktop */
 .navLinks {
   margin-left: auto;
-  display: flex;
+  display: none;  /* escondido em mobile */
   gap: 2rem;
 
   a {
@@ -39,19 +40,45 @@
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s;
+    &:hover { color: var(--color-primary); }
+  }
 
-    &:hover {
-      color: var(--color-primary);
-    }
+  @media (min-width: 768px) {
+    display: flex;  /* mostra em md+ */
   }
 }
 
+/* Botão hambúrguer: só em mobile */
 .toggle {
   background: none;
   border: none;
   color: #fff;
+  font-size: 1.5rem;
+  margin-left: auto;
+  cursor: pointer;
 
   @media (min-width: 768px) {
-    display: none;
+    display: none; /* esconde em md+ */
+  }
+}
+
+/* Menu mobile que aparece ao clicar no toggle */
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid #333;
+    transition: background 0.2s;
+    &:hover { background: rgba(255,255,255,0.1); }
   }
 }
