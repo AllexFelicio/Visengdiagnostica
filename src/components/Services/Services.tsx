@@ -1,29 +1,22 @@
+// src/components/Services/Services.tsx
 import styles from './Services.module.scss';
 
 const services = [
   {
-    title: 'Alta velocidade de execução',
-    text: 'Reduzimos o tempo de obra com processos industrializados e padronizados.',
+    title: 'Projetos Executivos e Compatibilização Técnica',
+    text: 'Elaboração e compatibilização de projetos arquitetônicos, estruturais e complementares integrados ao sistema construtivo em aço galvanizado leve.',
   },
   {
-    title: 'Precisão geométrica',
-    text: 'Perfis conformados a frio garantem tolerâncias milimétricas no fechamento.',
+    title: 'Execução de Obras com Sistema Light Steel Frame',
+    text: 'Construção de edificações com precisão industrial, utilizando materiais normatizados e mão de obra técnica qualificada.',
   },
   {
-    title: 'Menor carga nas fundações',
-    text: 'Estruturas leves diminuem custo e complexidade de fundações.',
+    title: 'Planejamento e Gerenciamento de Obras',
+    text: 'Coordenação de todas as disciplinas envolvidas na obra, com aplicação de técnicas de gestão de projetos (como cronogramas, EAPs e curvas de avanço físico‑financeiro).',
   },
   {
-    title: 'Desempenho termoacústico',
-    text: 'Revestimentos e isolamentos adequados mantêm conforto térmico e sonoro.',
-  },
-  {
-    title: 'Controle total de cronograma',
-    text: 'Acompanhamos cada etapa com relatórios e KPIs em tempo real.',
-  },
-  {
-    title: 'Conformidade normativas',
-    text: 'Projetos e execuções seguindo rigorosamente as normas brasileiras.',
+    title: 'Consultoria Técnica e Estudos de Viabilidade',
+    text: 'Apoio técnico na definição da viabilidade técnica e econômica de empreendimentos baseados em construção a seco.',
   },
 ];
 
@@ -32,7 +25,7 @@ export function Services() {
     <section id="serviços" className={styles.servicesSection}>
       <h2 className={styles.servicesTitle}>Serviços</h2>
       <p className={styles.servicesSubtitle}>
-        Por que escolher o Light Steel Frame?
+        A Steel Side Engenharia oferece um portfólio completo de serviços voltados à construção industrializada em Light Steel Frame:
       </p>
       <div className={styles.servicesGrid}>
         {services.map((s, i) => (
@@ -45,3 +38,5 @@ export function Services() {
     </section>
   );
 }
+
+export default Services;

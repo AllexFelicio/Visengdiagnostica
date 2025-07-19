@@ -21,14 +21,19 @@
 
 .servicesGrid {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 1.5rem;
 
+  /* mobile: 1 coluna */
+  grid-template-columns: 1fr;
+
+  /* tablet+: 2 colunas */
   @include respond-to(md) {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* desktop+: mantém 2 colunas */
   @include respond-to(lg) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
