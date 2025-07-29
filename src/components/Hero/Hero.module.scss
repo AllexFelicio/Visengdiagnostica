@@ -1,9 +1,13 @@
 /* src/components/Hero/Hero.module.scss */
-@import '../../styles/variables';
+@use '../../styles/variables' as *;
+
 
 .hero {
   height: 80vh;
-  background-image: url('../../assets/backgroud.jpg');
+  background-image: url('../../assets/iStock-801650116.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

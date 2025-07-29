@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './Navbar.module.scss';
-import logo from '../../assets/logo1.png';
+import logo from '../../assets/logo2.png';
 
 export function Navbar() {
   const [open, setOpen] = useState(false);

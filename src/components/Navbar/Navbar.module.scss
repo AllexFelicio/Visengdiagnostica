@@ -19,14 +19,15 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
-  height: 48px;
-  width: auto;
+  height: 100px;
+  width: 200px;
+  flex: 0 0 auto;
 }
 
 /* Nav horizontal: só em desktop */

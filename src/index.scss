@@ -1,9 +1,9 @@
+@use './styles/variables.scss' as *;
 /* src/index.scss */
 html {
   scroll-behavior: smooth;
 }
 
-@import './styles/variables';
 
 * {
   margin: 0;
