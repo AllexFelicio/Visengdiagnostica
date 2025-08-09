@@ -6,17 +6,14 @@
   padding: 4rem 2rem;
   text-align: center;
 
-  /* evita colapso da margin-top do primeiro filho (título) */
-  display: flow-root;
-
-  /* quando navegar por #serviços, compensa o navbar fixo */
+  display: flow-root; /* evita colapso de margem */
   scroll-margin-top: calc(var(--nav-h, 76px) + 16px);
 }
 
 .servicesTitle {
   font-size: 2.5rem;
   font-weight: 600;
-  margin: 0 0 0.5rem; /* zera topo pra não “morder” o Hero */
+  margin: 0 0 .5rem;
   line-height: 1.15;
 }
 
@@ -26,70 +23,123 @@
   margin-bottom: 2.5rem;
 }
 
+/* ===== GRID ===== */
 .servicesGrid {
   display: grid;
   gap: 1.5rem;
+  perspective: 1000px;
 
-  /* mobile: 1 coluna */
   grid-template-columns: 1fr;
 
-  /* tablet+: 2 colunas */
-  @include respond-to(md) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* desktop+: mantém 2 colunas */
-  @include respond-to(lg) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  @include respond-to(md) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to(lg) { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ===== CARD ===== */
 .card {
-  background: #111;
-  border-radius: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
   padding: 1.5rem;
   text-align: left;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
+  background:
+    linear-gradient(180deg, #121416 0%, #0d0f12 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.45),
+    0 0 0 1px rgba(255,255,255,.04) inset;
+
+  transform-style: preserve-3d;
+  transition: transform .28s cubic-bezier(.2,.65,.3,1),
+             box-shadow .28s ease, border-color .28s ease;
+
+  /* bar animada no topo ao hover */
+  &::before {
+    content: "";
+    position: absolute; left: 0; top: 0;
+    height: 2px; width: 0%;
+    background: linear-gradient(90deg, #1c78c0, #43a0ff);
+    transition: width .6s cubic-bezier(.22,.61,.36,1);
+  }
+
+  /* glow suave que aparece no hover */
+  &::after {
+    content: "";
+    position: absolute; inset: -30% -20% -40% -20%;
+    background:
+      radial-gradient(600px 220px at 50% -10%, rgba(28,120,192,.16), transparent 60%);
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s ease;
+  }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    transform: translateY(-6px) scale(1.015) rotateX(1.2deg);
+    box-shadow:
+      0 18px 46px rgba(0,0,0,.55),
+      0 0 0 1px rgba(255,255,255,.06) inset;
+    border-color: rgba(255,255,255,.12);
+
+    &::before { width: 100%; }
+    &::after  { opacity: 1; }
   }
 
   h3 {
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
     color: #fff;
+    letter-spacing: .2px;
   }
 
   p {
-    font-size: 0.95rem;
-    color: #ddd;
-    line-height: 1.4;
+    font-size: 0.98rem;
+    color: #dfe4ee;
+    line-height: 1.55;
   }
 }
 
-/* ===== Scroll-in nos CARDS dos serviços ===== */
+/* ===== ENTRADA MAIS VISÍVEL ===== */
 @media (prefers-reduced-motion: no-preference) {
-  .servicesGrid > .card {
+
+  /* título/subtítulo entram primeiro */
+  .servicesTitle,
+  .servicesSubtitle {
     opacity: 0;
-    transform: translateX(-24px);
-    animation: slide-right 700ms cubic-bezier(.22,.61,.36,1) both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 30%;
-    will-change: transform, opacity;
+    transform: translateY(16px);
+    animation: rise .6s ease both;
+  }
+  .servicesTitle { animation-delay: .05s; }
+  .servicesSubtitle { animation-delay: .12s; }
+
+  /* cards: lift + blur + scale com scroll-timeline */
+  @supports (animation-timeline: view()) {
+    .servicesGrid > .card {
+      opacity: 0;
+      transform: translateY(28px) scale(.96);
+      filter: blur(3px);
+      animation: card-in .75s cubic-bezier(.22,.61,.36,1) both;
+      animation-timeline: view();
+      animation-range: entry 12% cover 35%;
+      will-change: transform, opacity, filter;
+    }
   }
 
-  @keyframes slide-right {
-    to { opacity: 1; transform: none; }
+  /* fallback (sem scroll-timeline): anima quando carrega/entra na tela */
+  @supports not (animation-timeline: view()) {
+    .servicesGrid > .card {
+      opacity: 0;
+      transform: translateY(28px) scale(.96);
+      filter: blur(3px);
+      animation: card-in .75s cubic-bezier(.22,.61,.36,1) both;
+    }
   }
 
-  /* leve stagger em fila */
-  .servicesGrid > .card:nth-child(1) { animation-delay: 60ms; }
-  .servicesGrid > .card:nth-child(2) { animation-delay: 120ms; }
-  .servicesGrid > .card:nth-child(3) { animation-delay: 180ms; }
-  .servicesGrid > .card:nth-child(4) { animation-delay: 240ms; }
+  /* leve stagger */
+  .servicesGrid > .card:nth-child(1) { animation-delay: .06s; }
+  .servicesGrid > .card:nth-child(2) { animation-delay: .16s; }
+  .servicesGrid > .card:nth-child(3) { animation-delay: .26s; }
+  .servicesGrid > .card:nth-child(4) { animation-delay: .36s; }
+
+  @keyframes rise   { to { opacity: 1; transform: none; } }
+  @keyframes card-in { to { opacity: 1; transform: none; filter: none; } }
 }

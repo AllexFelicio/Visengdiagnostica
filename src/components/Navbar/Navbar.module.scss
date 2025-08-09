@@ -8,6 +8,9 @@
 
   --cta: #1c78c0;
   --cta-hover: #165f96;
+
+   --logo-slot: 64px;     /* altura usada no layout (não muda o navbar) */
+  --logo-scale: 1.28;    /* quanto a logo cresce sem afetar o layout */
 }
 
 /* Header fixo */
@@ -40,8 +43,26 @@
 }
 
 /* posicionamento fixo no grid */
-.logo { height: 64px; width: auto; display: block; }
-.brand { display: inline-block; grid-column: 1 / 2; }
+.brand {
+  display: inline-block;
+  grid-column: 1 / 2;
+
+  /* fixa a “vaga” da logo no layout */
+  height: var(--logo-slot);
+  display: grid;
+  align-items: center;
+}
+
+.logo {
+  height: var(--logo-slot);
+  width: auto;
+  display: block;
+
+  /* cresce visualmente sem alterar o fluxo */
+  transform: scale(var(--logo-scale));
+  transform-origin: left center;
+  will-change: transform;
+}
 .navLinks { grid-column: 2 / 3; }
 .actions  { grid-column: 3 / 4; justify-self: end; }
 
