@@ -29,17 +29,15 @@ export function Navbar() {
     window.scrollTo({ top: y, behavior: 'smooth' })
   }
 
-  // Clique em Home: sempre volta pro topo
+  // Clique em Inicio: sempre volta pro topo
   const handleHomeClick = (e?: React.MouseEvent) => {
     e?.preventDefault?.()
     setOpen(false)
 
     if (location.pathname === '/') {
-      // já está na Home → apenas sobe
       window.scrollTo({ top: 0, behavior: 'smooth' })
       if (window.location.hash) window.history.pushState(null, '', '/')
     } else {
-      // vem de outra rota → navega e sobe
       navigate('/')
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -72,11 +70,11 @@ export function Navbar() {
   }
 
   const links: NavItem[] = [
-    { label: 'Inicio',        to: '/',             type: 'route' },
-    { label: 'Benefícios',  to: '/#benefícios',  type: 'hash'  },
-    { label: 'Serviços',    to: '/#serviços',    type: 'hash'  },
-    { label: 'Portfólio',   to: '/portfolio',    type: 'route' },
-    { label: 'Contato',     to: '/#contato',     type: 'hash'  },
+    { label: 'Inicio',     to: '/',            type: 'route' },
+    { label: 'Benefícios', to: '/#benefícios', type: 'hash'  },
+    { label: 'Serviços',   to: '/#serviços',   type: 'hash'  },
+    { label: 'Portfólio',  to: '/portfolio',   type: 'route' },
+    { label: 'Contato',    to: '/#contato',    type: 'hash'  },
   ]
 
   return (
@@ -115,13 +113,15 @@ export function Navbar() {
             <a href="/#contato" className={styles.cta} onClick={handleHashClick('/#contato')}>
               Entrar em Contato
             </a>
+
+            {/* Botão hambúrguer animado */}
             <button
-              className={styles.toggle}
+              className={`${styles.toggle} ${open ? styles.open : ''}`}
               onClick={() => setOpen(o => !o)}
-              aria-label="Abrir menu"
+              aria-label={open ? 'Fechar menu' : 'Abrir menu'}
               aria-expanded={open}
             >
-              ☰
+              <span className={styles.bars} aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -129,7 +129,7 @@ export function Navbar() {
         {/* Menu mobile */}
         {open && (
           <nav className={styles.mobileMenu}>
-            {/* Home no mobile */}
+            {/* Inicio no mobile */}
             <a href="/" onClick={handleHomeClick}>Inicio</a>
 
             {/* Demais links */}

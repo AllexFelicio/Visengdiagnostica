@@ -68,9 +68,9 @@
   gap: 12px;
 }
 
-/* >>> ESCONDER CTA NO MOBILE <<< */
+/* CTA – escondido no mobile, visível no desktop */
 .cta {
-  display: none;                    /* mobile: escondido */
+  display: none; /* mobile */
   background: var(--cta);
   color: #fff;
   text-decoration: none;
@@ -82,20 +82,54 @@
 }
 .cta:hover { background: var(--cta-hover); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(28,120,192,.45); }
 
-/* Hambúrguer */
+/* ===== Hambúrguer preto com animação ===== */
 .toggle {
+  /* força preto e opacidade total */
+  color: #000 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+  mix-blend-mode: normal !important;
+
   display: inline-grid;
   place-items: center;
   background: transparent;
   border: none;
-  color: var(--ink);
   font-size: 22px;
   line-height: 1;
   padding: 8px;
   cursor: pointer;
 }
 
-/* Menu mobile dropdown */
+/* 3 barrinhas em CSS usando currentColor */
+.bars {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor !important;
+  transition: transform .22s ease, background .22s ease, opacity .22s ease;
+}
+.bars::before,
+.bars::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor !important;
+  transition: transform .22s ease, opacity .22s ease;
+}
+.bars::before { transform: translateY(-6px); }
+.bars::after  { transform: translateY( 6px); }
+
+/* Vira “X” quando o menu está aberto */
+.open .bars { background: transparent !important; }
+.open .bars::before { transform: translateY(0) rotate(45deg); }
+.open .bars::after  { transform: translateY(0) rotate(-45deg); }
+
+/* Menu mobile dropdown + animação de entrada */
 .mobileMenu {
   margin-top: 8px;
   background: #fff;
@@ -105,9 +139,17 @@
   padding: 12px 14px;
   display: grid;
   gap: 8px;
+
+  opacity: 0;
+  transform: translateY(-8px) scaleY(.98);
+  transform-origin: top;
+  animation: menu-in .18s ease forwards;
+}
+@keyframes menu-in {
+  to { opacity: 1; transform: none; }
 }
 
-/* >>> FORÇAR COR/OPACIDADE PRETA NO MOBILE <<< */
+/* Links do mobile – preto garantido */
 .mobileMenu a {
   display: block;
   text-decoration: none;
@@ -140,13 +182,13 @@
 
 /* pequenos refinamentos mobile */
 @media (max-width: 959px) {
-  .toggle { margin-left: 8px; }  /* dá um respiro da logo */
+  .toggle { margin-left: 10px; } /* dá um respiro da logo */
 }
 @media (max-width: 420px) {
   .logo { height: 56px; }
 }
 
-/* Garantia extra de cor escura dentro do card */
+/* Garantia extra de cor escura nos links do card */
 .bar a,
 .navLinks a,
 .navLinks a:link,
