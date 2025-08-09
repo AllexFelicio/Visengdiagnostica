@@ -46,9 +46,9 @@ import img37 from '../../assets/img37.jpg'
 import img38 from '../../assets/img38.jpg'
 import img39 from '../../assets/img39.jpg'
 import img40 from '../../assets/img40.jpg'
-import img41 from '../../assets/img40.jpg'
-import img42 from '../../assets/img41.jpg'
-import img43 from '../../assets/img42.png'
+import img41 from '../../assets/img41.jpg'
+import img42 from '../../assets/img42.png'
+import img43 from '../../assets/img43.png'
 
 interface Work {
   id: string
@@ -464,6 +464,27 @@ const works: Work[] = [
     ],
   },
   {
+    id: 'santander4',
+    title: 'SANTANDER CIDADE LIMPA',
+    images: [img22],
+    details: [
+      { label: 'Projeto', value: 'Cidade Limpa' },
+      { label: 'Cliente', value: 'BANCO SANTANDER S/A.' },
+      { label: 'Valor gerenciado', value: 'R$ 5.000.000,00' },
+      { label: 'Duração', value: 'Fevereiro/2007 a Novembro/2007' },
+      { label: 'Área', value: '113 Agências localizadas na cidade de São Paulo' },
+      { label: 'Escopo', value: 'Estudo de Viabilidade Técnica legal e Financeira, Fotomontagem, Elaboração de 3D, Projetos Executivos, Gerenciamento da Implantação, Aprovação Legal' },
+    ],
+    description: [
+      'A primeira fase da atualização da logomarca Santander, ocorreu na cidade de São Paulo.',
+      'Objetivou a implantação da Marca, e o atendimento ao Decreto Municipal 47950 de 5/Dezembro de 2006, que regulamenta a Lei 14223, e que dispõe sobre a ordenação dos elementos que compõem a paisagem urbana do Município de São Paulo, ou comumente denominada: Lei Cidade Limpa.',
+      'De aproximadamente 150 Pontos localizados na cidade de São Paulo, a DHARO foi responsável por 113.',
+      'O escopo consistiu em visita a cada localidade para levantamento métrico, fotográfico e cadastral das instalações. O estudo de viabilidade e restrição legal destas localidades foi conduzido por equipe específica e com “expertise” no assunto.',
+      'A compilação entre o material de levantamento, as restrições e legislações municipais específicas, resultou em um estudo da nova imagem proposta, que juntamente com os custos análise legal foi submetida à aprovação das áreas envolvidas pelo cliente.',
+      'Por se tratar de atendimento a Lei Municipal que definia data limite para regularização, a fase de gerenciamento e execução teve inicio prévio a validação final dos executivos, o que também ocorreu com a questão legal.',
+    ],
+  },
+  {
     id: 'embratel',
     title: 'NORTEL TELECOM / EMBRATEL – Estado de São Paulo',
     images: [img23],
@@ -722,7 +743,8 @@ const works: Work[] = [
   },
 ]
 
-// ===============================================
+// mantém seus imports de React, router, Navbar, Footer, styles
+// mantém também seus imports de imagens e o const works: Work[] como já estão acima
 
 export default function PortfolioDetail() {
   const { id } = useParams<{ id: string }>()
@@ -737,6 +759,15 @@ export default function PortfolioDetail() {
   const [current, setCurrent] = useState<number>(initialIndex >= 0 ? initialIndex : 0)
   const [imgIndex, setImgIndex] = useState(0) // índice da imagem dentro da obra
 
+  // LIGHTBOX + ZOOM
+  const [lbOpen, setLbOpen] = useState(false)
+  const [scale, setScale] = useState(1)
+  const [tx, setTx] = useState(0)
+  const [ty, setTy] = useState(0)
+  const resetZoom = () => { setScale(1); setTx(0); setTy(0) }
+  const openLightbox = (i = imgIndex) => { setImgIndex(i); resetZoom(); setLbOpen(true) }
+  const closeLightbox = () => { setLbOpen(false); resetZoom() }
+
   // se mudar o id na URL, atualiza índice da obra
   useEffect(() => {
     if (initialIndex >= 0) setCurrent(initialIndex)
@@ -750,20 +781,29 @@ export default function PortfolioDetail() {
   const work = works[current]
   if (!work) return <p className={styles.notFound}>Obra não encontrada.</p>
 
-  // navegação entre obras (mantém seu comportamento)
+  // navegação entre obras
   const prevWork = () => setCurrent(c => (c - 1 + works.length) % works.length)
   const nextWork = () => setCurrent(c => (c + 1) % works.length)
 
-  // atalhos de teclado
+  // atalhos de teclado (respeita lightbox aberto)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (lbOpen) {
+        if (e.key === 'Escape') return closeLightbox()
+        if (e.key === 'ArrowLeft')
+          return setImgIndex(i => (i - 1 + work.images.length) % work.images.length)
+        if (e.key === 'ArrowRight')
+          return setImgIndex(i => (i + 1) % work.images.length)
+        return
+      }
       if (e.key === 'ArrowLeft') prevWork()
       if (e.key === 'ArrowRight') nextWork()
       if (e.key === 'Escape') navigate(-1)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [navigate])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lbOpen, work.images.length, navigate])
 
   // título da aba
   useEffect(() => {
@@ -772,10 +812,41 @@ export default function PortfolioDetail() {
     return () => { document.title = old }
   }, [work.title])
 
+  // pan (arrastar) quando der zoom
+  useEffect(() => {
+    if (!lbOpen || scale === 1) return
+    let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0
+
+    const down = (e: MouseEvent) => {
+      dragging = true
+      sx = e.clientX; sy = e.clientY
+      ox = tx; oy = ty
+      e.preventDefault()
+    }
+    const move = (e: MouseEvent) => {
+      if (!dragging) return
+      setTx(ox + (e.clientX - sx))
+      setTy(oy + (e.clientY - sy))
+    }
+    const up = () => { dragging = false }
+
+    const target = document.getElementById('lb-img-wrap')
+    target?.addEventListener('mousedown', down)
+    window.addEventListener('mousemove', move)
+    window.addEventListener('mouseup', up)
+
+    return () => {
+      target?.removeEventListener('mousedown', down)
+      window.removeEventListener('mousemove', move)
+      window.removeEventListener('mouseup', up)
+    }
+  }, [lbOpen, scale, tx, ty])
+
   return (
     <>
       <Navbar />
       <div className={styles.bgFx} aria-hidden="true" />
+
       <main className={styles.container}>
         <button
           className={styles.back}
@@ -810,6 +881,10 @@ export default function PortfolioDetail() {
               src={work.images[imgIndex]}
               alt={`${work.title} — imagem ${imgIndex + 1}`}
               className={styles.image}
+              onClick={() => openLightbox(imgIndex)}  // clique abre o lightbox
+              style={{ cursor: 'zoom-in' }}
+              loading="eager"
+              decoding="async"
             />
 
             <button
@@ -834,7 +909,7 @@ export default function PortfolioDetail() {
                     role="tab"
                     title={`Ver imagem ${i + 1}`}
                   >
-                    <img src={src} alt={`Miniatura ${i + 1}`} />
+                    <img src={src} alt={`Miniatura ${i + 1}`} loading="lazy" />
                   </button>
                 ))}
               </div>
@@ -863,6 +938,53 @@ export default function PortfolioDetail() {
           ))}
         </section>
       </main>
+
+      {/* ===== LIGHTBOX / ZOOM ===== */}
+      {lbOpen && (
+        <div className={styles.lightbox} role="dialog" aria-modal="true" aria-label="Visualização da imagem">
+          <div className={styles.lbBackdrop} onClick={closeLightbox} />
+          <div className={styles.lbDialog}>
+            <button className={styles.lbClose} onClick={closeLightbox} aria-label="Fechar">×</button>
+
+            {work.images.length > 1 && (
+              <>
+                <button
+                  className={styles.lbPrev}
+                  onClick={() => { setImgIndex(i => (i - 1 + work.images.length) % work.images.length); resetZoom(); }}
+                  aria-label="Anterior"
+                >‹</button>
+                <button
+                  className={styles.lbNext}
+                  onClick={() => { setImgIndex(i => (i + 1) % work.images.length); resetZoom(); }}
+                  aria-label="Próxima"
+                >›</button>
+              </>
+            )}
+
+            <div
+              id="lb-img-wrap"
+              className={styles.lbImgWrap}
+              style={{ cursor: scale === 1 ? 'zoom-in' : 'grab' }}
+              onDoubleClick={() => setScale(s => s === 1 ? 2 : 1)} // 2x no duplo clique
+            >
+              <img
+                className={styles.lbImage}
+                src={work.images[imgIndex]}
+                alt={`${work.title} — imagem ${imgIndex + 1}`}
+                style={{ transform: `translate(${tx}px, ${ty}px) scale(${scale})` }}
+                draggable={false}
+              />
+            </div>
+
+            <div className={styles.lbControls}>
+              <button onClick={() => setScale(s => Math.max(1, +(s / 1.25).toFixed(2)))} aria-label="Diminuir">−</button>
+              <button onClick={() => setScale(s => Math.min(5, +(s * 1.25).toFixed(2)))} aria-label="Aumentar">+</button>
+              <button onClick={resetZoom} aria-label="100%">100%</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </>
   )

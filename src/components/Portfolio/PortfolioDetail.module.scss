@@ -323,3 +323,112 @@
 
 /* legacy cleanup (evita conflitos) */
 .imageWrapper, .arrow, .detailsSection, .descriptionSection { display: none !important; }
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.lbBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(2px);
+}
+
+.lbDialog {
+  position: absolute;
+  inset: 32px;
+  display: grid;
+  place-items: center;
+  pointer-events: none; /* controles reativam */
+}
+
+.lbImgWrap {
+  pointer-events: auto;
+  max-width: 96vw;
+  max-height: 86vh;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #000;
+  box-shadow: 0 24px 64px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06) inset;
+}
+
+.lbImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* mostra no tamanho nativo sem esticar */
+  transition: transform .1s ease;
+  user-select: none;
+  will-change: transform;
+}
+
+.lbClose,
+.lbPrev,
+.lbNext {
+  pointer-events: auto;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.lbClose:hover { background: var(--cta); border-color: rgba(255,255,255,.5); transform: scale(1.04); }
+
+.lbPrev, .lbNext {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+}
+.lbPrev { left: 18px; right: auto; }
+.lbNext { right: 18px; }
+
+.lbControls {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 6px;
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+
+  button {
+    min-width: 44px; height: 36px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .12s ease, transform .1s ease, border-color .12s ease;
+
+    &:hover { background: var(--cta); border-color: rgba(255,255,255,.4); transform: translateY(-1px); }
+    &:active { transform: translateY(0); }
+  }
+}
+
+@media (max-width: 640px) {
+  .lbDialog { inset: 16px; }
+  .lbPrev, .lbNext { width: 38px; height: 38px; }
+  .lbClose { width: 38px; height: 38px; }
+}
