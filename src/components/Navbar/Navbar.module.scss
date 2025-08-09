@@ -3,19 +3,16 @@
   --nav-h: 76px;
   --pad: 12px;
 
-  /* texto escuro */
-  --ink: #0f172a;   /* quase preto */
+  --ink: #0f172a;      /* preto/quase preto */
   --muted: #334155;
 
-  /* azul da marca */
   --cta: #1c78c0;
   --cta-hover: #165f96;
 }
 
-/* header fixo (o card fica dentro) */
+/* Header fixo */
 .header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: fixed; top: 0; left: 0; right: 0;
   padding: var(--pad);
   background: transparent;
   z-index: 1000;
@@ -23,21 +20,18 @@
 }
 .scrolled { padding: 8px 12px; }
 
-.inner {
-  max-width: min(var(--nav-w), 100%);
-  margin: 0 auto;
-}
+.inner { max-width: min(var(--nav-w), 100%); margin: 0 auto; }
 
-/* ===== Card branco ===== */
+/* Card branco */
 .bar {
   background: #fff;
-  color: var(--ink);                 /* <- cor base escura */
+  color: var(--ink);
   border-radius: 18px;
   box-shadow: 0 16px 40px rgba(0,0,0,.25);
   padding: 12px 18px;
 
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto; /* logo | (links) | ações */
   align-items: center;
   gap: 18px;
 
@@ -45,19 +39,21 @@
   -moz-osx-font-smoothing: auto;
 }
 
+/* posicionamento fixo no grid */
 .logo { height: 64px; width: auto; display: block; }
-.brand { display: inline-block; }
+.brand { display: inline-block; grid-column: 1 / 2; }
+.navLinks { grid-column: 2 / 3; }
+.actions  { grid-column: 3 / 4; justify-self: end; }
 
+/* Links desktop */
 .navLinks {
-  display: none;            /* aparece >= 960px */
+  display: none;
   justify-content: center;
   gap: 26px;
-
 }
-
 .link {
   text-decoration: none;
-  color: var(--ink);        /* <- escuro */
+  color: var(--ink);
   font-weight: 600;
   letter-spacing: .2px;
   opacity: 1;
@@ -65,15 +61,16 @@
 }
 .link:hover { color: #0b2d4a; }
 
-/* ===== Ações à direita ===== */
+/* Ações à direita */
 .actions {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
+/* >>> ESCONDER CTA NO MOBILE <<< */
 .cta {
-  display: inline-block;
+  display: none;                    /* mobile: escondido */
   background: var(--cta);
   color: #fff;
   text-decoration: none;
@@ -83,42 +80,40 @@
   box-shadow: 0 6px 18px rgba(28,120,192,.35);
   transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
 }
-.cta:hover {
-  background: var(--cta-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(28,120,192,.45);
-}
+.cta:hover { background: var(--cta-hover); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(28,120,192,.45); }
 
-/* ===== Botão hambúrguer (mobile) ===== */
+/* Hambúrguer */
 .toggle {
   display: inline-grid;
   place-items: center;
   background: transparent;
   border: none;
-  color: var(--ink);        /* <- escuro */
+  color: var(--ink);
   font-size: 22px;
   line-height: 1;
   padding: 8px;
   cursor: pointer;
 }
 
-/* ===== Menu mobile (renderizado quando open=true) ===== */
+/* Menu mobile dropdown */
 .mobileMenu {
   margin-top: 8px;
   background: #fff;
-  color: var(--ink);        /* <- escuro */
+  color: var(--ink);
   border-radius: 14px;
   box-shadow: 0 12px 26px rgba(0,0,0,.22);
   padding: 12px 14px;
-
   display: grid;
   gap: 8px;
 }
 
+/* >>> FORÇAR COR/OPACIDADE PRETA NO MOBILE <<< */
 .mobileMenu a {
   display: block;
   text-decoration: none;
-  color: var(--ink);
+  color: #414141 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
   font-weight: 600;
   padding: 10px 8px;
   border-radius: 10px;
@@ -135,23 +130,30 @@
   border-radius: 10px;
 }
 
-/* ===== Responsivo ===== */
+/* Responsivo */
 @media (min-width: 960px) {
   .navLinks { display: flex; }
-  .toggle   { display: none; }
+  .toggle   { display: none; }              /* esconde o hambúrguer no desktop */
   .mobileMenu { display: none !important; }
+  .cta { display: inline-block; }           /* desktop: mostra o CTA */
 }
 
-/* FORÇA cor escura em todos os anchors do card */
+/* pequenos refinamentos mobile */
+@media (max-width: 959px) {
+  .toggle { margin-left: 8px; }  /* dá um respiro da logo */
+}
+@media (max-width: 420px) {
+  .logo { height: 56px; }
+}
+
+/* Garantia extra de cor escura dentro do card */
 .bar a,
-.bar .link,
 .navLinks a,
 .navLinks a:link,
 .navLinks a:visited {
-  color: #414141 !important;
+  color: #0a0a0a !important;
   opacity: 1 !important;
   text-shadow: none !important;
   mix-blend-mode: normal !important;
   filter: none !important;
 }
-

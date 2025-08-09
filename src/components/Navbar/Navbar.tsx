@@ -72,7 +72,7 @@ export function Navbar() {
   }
 
   const links: NavItem[] = [
-    { label: 'Home',        to: '/',             type: 'route' },
+    { label: 'Inicio',        to: '/',             type: 'route' },
     { label: 'Benefícios',  to: '/#benefícios',  type: 'hash'  },
     { label: 'Serviços',    to: '/#serviços',    type: 'hash'  },
     { label: 'Portfólio',   to: '/portfolio',    type: 'route' },
@@ -84,17 +84,17 @@ export function Navbar() {
       <div className={styles.inner}>
         <div className={styles.bar}>
           {/* Logo → também volta pro topo */}
-          <a href="/" className={styles.brand} aria-label="Home" onClick={handleHomeClick}>
+          <a href="/" className={styles.brand} aria-label="Inicio" onClick={handleHomeClick}>
             <img src={logo} alt="Steelside" className={styles.logo} />
           </a>
 
           {/* Links desktop */}
           <nav className={styles.navLinks}>
             {links.map(link => {
-              if (link.label === 'Home') {
+              if (link.label === 'Inicio') {
                 return (
-                  <a key="Home" href="/" className={styles.link} onClick={handleHomeClick}>
-                    Home
+                  <a key="Inicio" href="/" className={styles.link} onClick={handleHomeClick}>
+                    Inicio
                   </a>
                 )
               }
@@ -130,10 +130,10 @@ export function Navbar() {
         {open && (
           <nav className={styles.mobileMenu}>
             {/* Home no mobile */}
-            <a href="/" onClick={handleHomeClick}>Home</a>
+            <a href="/" onClick={handleHomeClick}>Inicio</a>
 
             {/* Demais links */}
-            {links.filter(l => l.label !== 'Home').map(link =>
+            {links.filter(l => l.label !== 'Inicio').map(link =>
               link.type === 'route' ? (
                 <Link key={link.label} to={link.to} onClick={() => setOpen(false)}>
                   {link.label}
