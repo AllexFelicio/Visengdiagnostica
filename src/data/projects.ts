@@ -33,6 +33,8 @@ import img31 from '../assets/img31.jpg'
 import img32 from '../assets/img32.png'
 import img33 from '../assets/img33.jpg'
 import img34 from '../assets/img34.jpg'
+import img35 from '../assets/img35.jpg'
+import img36 from '../assets/img36.jpg'
 
 export interface Project {
   id: string
@@ -75,5 +77,7 @@ export const allProjects: Project[] = [
   { id: 'saaeportofeliz',  src: img32, title: 'SAAE PORTO FELIZ – Esgoto Sanitário' },
   { id: 'prefeitura',      src: img33, title: 'PREFEITURA SJC – Recuperação de galeria e pavimentação' },
   { id: 'banco-real',      src: img5,  title: 'BANCO REAL – “Guarda-Chuva” Gerenciamento de Intervenções' },
+  { id: 'morada-dos-passaros',      src: img35,  title: 'Residência Alto Padrão Sistema Convencional Residencial Morada dos Pássaros – Barueri - SP' },
+  { id: 'residencial-rivieira',      src: img36,  title: 'Residência Alto Padrão no Sistema Light Steel Frame Riviera de Santa Cristina XIII – Paranapanema - SP' },
 ]
 export default allProjects

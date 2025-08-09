@@ -1,3 +1,4 @@
+// src/pages/PortfolioList/PortfolioList.tsx
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
@@ -7,6 +8,17 @@ import { allProjects } from '../../data/projects'
 
 type SortKey = 'az' | 'za' | 'rand'
 
+// IDs que SEMPRE ficam nas primeiras posições (na ordem definida aqui)
+const PINNED_IDS = ['morada-dos-passaros','residencial-rivieira'] as const
+
+function shuffle<T>(arr: T[]) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
+
 export default function PortfolioList() {
   const [q, setQ] = useState('')
   const [sort, setSort] = useState<SortKey>('az')
@@ -14,20 +26,26 @@ export default function PortfolioList() {
   const projects = useMemo(() => {
     const needle = q.trim().toLowerCase()
 
-    let list = needle
+    // 1) filtro por busca
+    let filtered = needle
       ? allProjects.filter(p => p.title.toLowerCase().includes(needle))
       : allProjects
 
-    if (sort === 'az') list = [...list].sort((a, b) => a.title.localeCompare(b.title))
-    if (sort === 'za') list = [...list].sort((a, b) => b.title.localeCompare(a.title))
-    if (sort === 'rand') {
-      list = [...list]
-      for (let i = list.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1))
-        ;[list[i], list[j]] = [list[j], list[i]]
-      }
-    }
-    return list
+    // 2) separa “fixados” que passaram no filtro (mantém a ordem do array PINNED_IDS)
+    const pinnedInList = PINNED_IDS
+      .map(id => filtered.find(p => p.id === id))
+      .filter((p): p is (typeof allProjects)[number] => Boolean(p))
+
+    // 3) resto (sem os fixados)
+    let rest = filtered.filter(p => !PINNED_IDS.includes(p.id as any))
+
+    // 4) ordenação/embaralhamento só do resto
+    if (sort === 'az') rest = [...rest].sort((a, b) => a.title.localeCompare(b.title))
+    if (sort === 'za') rest = [...rest].sort((a, b) => b.title.localeCompare(a.title))
+    if (sort === 'rand') rest = shuffle([...rest])
+
+    // 5) resultado final: fixados + resto
+    return [...pinnedInList, ...rest]
   }, [q, sort])
 
   return (
