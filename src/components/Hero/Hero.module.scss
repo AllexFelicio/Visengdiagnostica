@@ -1,57 +1,66 @@
-/* src/components/Hero/Hero.module.scss */
 @use '../../styles/variables' as *;
 
-
+/* ocupa praticamente a tela toda, descontando o navbar fixo */
 .hero {
-  height: 80vh;
+  /* compensa o navbar: var(--nav-h) + 2*padding do header (12px) */
+  min-height: calc(110svh - (var(--nav-h, 76px)));
+  /* evita “pular” quando navegar por âncora */
+  scroll-margin-top: calc(var(--nav-h, 76px) + 24px);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: clamp(24px, 5vw, 48px) 16px;
+
   background-image: url('../../assets/iStock-801650116.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+
+  /* overlay pra dar contraste no texto */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.35) 100%);
+  }
 }
 
 .content {
+  position: relative; /* fica acima do overlay */
+  z-index: 1;
   text-align: center;
-  /* garante que título e botão fiquem empilhados */
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  gap: 1.25rem;
 }
 
 .title {
-  /* mobile-first: já começa grande */
-  font-size: 2rem;
-  margin-bottom: 2.5rem;
-
-  @include respond-to(md) {
-    font-size: 2rem;
-    margin-bottom: 3rem;
-  }
-
-  @include respond-to(lg) {
-    font-size: 2rem;
-    margin-bottom: 4rem;
-  }
+  /* maior em telas grandes, mas sem exageros */
+  font-size: clamp(2rem, 1.2rem + 2.8vw, 3.2rem);
+  line-height: 1.15;
+  color: #fff;
+  margin: 0 0 0.5rem;
+  text-shadow: 0 2px 18px rgba(0,0,0,.35);
 }
 
 .button {
   background: var(--color-primary);
   color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 0.5rem;
   text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.2s;
+  font-weight: 600;
+  transition: transform .12s ease, filter .12s ease;
+  will-change: transform, filter;
 
-  /* se quiser ainda um pouco de margem extra */
-  margin-top: 0.5rem;
-
-  &:hover {
-    opacity: 0.9;
-  }
+  &:hover   { transform: translateY(-1px); filter: brightness(.95); }
+  &:active  { transform: translateY(0);     filter: brightness(.9);  }
 }

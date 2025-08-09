@@ -1,0 +1,235 @@
+/* ====== PortfolioDetail.module.scss ====== */
+
+:root {
+  --ink: #e7ecf3;
+  --muted: #a5b0bf;
+  --surface: #0b0f16;
+  --card: rgba(8, 10, 15, 0.6);
+  --card-strong: rgba(11, 43, 65, 0.85);
+
+  /* usa o mesmo azul que você definiu no projeto */
+  --cta: #1c78c0;
+  --cta-hover: #165f96;
+}
+
+/* fundo sutil */
+.bgFx {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(28,120,192,.18), transparent 60%),
+    radial-gradient(1000px 600px at 120% 0%, rgba(28,120,192,.12), transparent 55%),
+    linear-gradient(180deg, #020202 0%, #0c111a 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 24px 16px 56px;
+  margin-top: 7.5rem; /* espaço pro navbar em card */
+  color: var(--ink);
+}
+
+/* botão voltar mais “presente” */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #0f172a;
+  border: 1px solid rgba(255,255,255,.08);
+  color: #e5efff;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 10px 28px rgba(0,0,0,.35);
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease, border-color .12s ease;
+  cursor: pointer;
+  margin-bottom: 18px;
+
+  &:hover {
+    background: #111b33;
+    border-color: rgba(255,255,255,.12);
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px rgba(0,0,0,.45);
+  }
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: .3px;
+  text-shadow: 0 1px 0 rgba(0,0,0,.35);
+}
+
+.counter {
+  align-self: center;
+  font-weight: 700;
+  color: var(--muted);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+/* layout da área superior: imagem + detalhes */
+.topSection {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 24px;
+  margin-bottom: 20px;
+
+  @media (max-width: 980px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======== Card da imagem ======== */
+.imageCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #000;
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.45),
+    0 0 0 1px rgba(255,255,255,.06) inset;
+
+  /* altura responsiva do card */
+  height: clamp(280px, 56vh, 540px);
+}
+
+.image {
+  position: absolute;
+  inset: 0;          /* top/right/bottom/left = 0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* preenche sem sobras */
+  object-position: center;
+  display: block;
+  user-select: none;
+}
+
+/* botões de navegação — agora confiáveis via data-atributos */
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+
+  box-shadow: 0 12px 32px rgba(0,0,0,.45);
+  transition: background .15s ease, transform .12s ease, border-color .15s ease;
+
+  &:hover {
+    background: var(--cta);
+    border-color: rgba(255,255,255,.45);
+    transform: translateY(-50%) scale(1.04);
+  }
+  &:active {
+    transform: translateY(-50%) scale(.98);
+  }
+}
+
+.imageCard [data-nav="prev"] { left: 12px; }
+.imageCard [data-nav="next"] { right: 12px; }
+
+@media (max-width: 520px) {
+  .navBtn { width: 38px; height: 38px; font-size: 22px; }
+  .imageCard { height: 44vh; } /* ajusta a altura no mobile */
+}
+
+/* ======== Card dos detalhes ======== */
+.detailsCard {
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow: 0 16px 44px rgba(0,0,0,.35);
+  padding: 16px;
+}
+
+.detailsList {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.detailItem {
+  background: var(--card-strong);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 14px;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.detailLabel {
+  font-weight: 800;
+  color: #eaf3ff;
+}
+
+.detailValue {
+  color: #e4ebf7;
+}
+
+/* dicas de teclado */
+.hints {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* ======== Card da descrição ======== */
+.descriptionCard {
+  margin-top: 12px;
+  padding: 18px 18px 10px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow: 0 16px 44px rgba(0,0,0,.35);
+}
+
+.paragraph {
+  margin: 0 0 12px;
+  line-height: 1.65;
+  color: #dfe7f4;
+}
+
+.notFound {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  color: #fff;
+}
+
+/* legacy cleanup (evita conflitos) */
+.imageWrapper, .arrow, .detailsSection, .descriptionSection { display: none !important; }

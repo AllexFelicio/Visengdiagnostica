@@ -1,0 +1,202 @@
+:root {
+  --bg: #0a0b0d;
+  --text: #e9eef7;
+  --muted: #a6b0c0;
+  --panel: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.14);
+  --radius: 18px;
+  --shadow: 0 14px 40px rgba(0,0,0,.46);
+
+  --cta: #1c78c0;
+  --cta-hover: #165f96;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 28px);
+  color: var(--text);
+
+  /* espaço pro navbar flutuante em card */
+  margin-top: 7.5rem;
+}
+
+.header { margin-bottom: 10px; }
+.headline h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.6rem, 1rem + 2vw, 2.2rem);
+}
+.headline p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ===== Toolbar ===== */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.searchWrap {
+  position: relative;
+  width: min(520px, 100%);
+}
+.searchIcon {
+  position: absolute; left: 12px; top: 50%;
+  width: 18px; height: 18px; transform: translateY(-50%);
+  fill: var(--muted);
+  pointer-events: none;
+}
+.search {
+  width: 100%;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 36px 10px 38px;
+  outline: none;
+}
+.search::placeholder { color: color-mix(in srgb, var(--muted) 85%, transparent); }
+.clear {
+  position: absolute; right: 6px; top: 50%;
+  transform: translateY(-50%);
+  width: 28px; height: 28px; border-radius: 999px;
+  border: 0; background: transparent; color: var(--muted);
+  font-size: 18px; line-height: 1; cursor: pointer;
+}
+.clear:hover { background: rgba(255,255,255,.08); color: #fff; }
+
+.spacer { flex: 1 1 auto; }
+
+.count {
+  font-size: .95rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sort {
+  display: inline-flex; align-items: center;
+  gap: 8px; white-space: nowrap;
+  font-size: .95rem; color: var(--muted);
+}
+.sort select {
+  appearance: none;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* ===== Grid ===== */
+.grid {
+  display: grid;
+  gap: clamp(12px, 2vw, 18px);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  margin-top: 12px;
+}
+
+/* ===== Card ===== */
+.card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #0b0f16;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: inherit;
+  isolation: isolate;
+
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 52px rgba(0,0,0,.55);
+  border-color: rgba(255,255,255,.24);
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;   /* mantém padronizado */
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+  transition: transform .45s ease;
+}
+.card:hover img { transform: scale(1.06); }
+
+/* faixa com gradiente pra leitura do título */
+.scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.66) 100%);
+  opacity: .75; pointer-events: none;
+  transition: opacity .25s ease;
+}
+.card:hover .scrim { opacity: .95; }
+
+.title {
+  position: absolute; left: 12px; right: 12px; bottom: 12px;
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-shadow: 0 8px 24px rgba(0,0,0,.65), 0 1px 0 rgba(0,0,0,.4);
+}
+
+/* ===== Empty state ===== */
+.empty {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--muted);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.empty button {
+  background: var(--cta); color: #fff; border: 0;
+  padding: 8px 12px; border-radius: 10px; font-weight: 700;
+  cursor: pointer;
+}
+.empty button:hover { background: var(--cta-hover); }
+
+/* ===== Scroll-in nos cards da LISTA ===== */
+@media (prefers-reduced-motion: no-preference) {
+  /* cada card anima quando entra na viewport */
+  .card {
+    opacity: 0;
+    transform: translateY(18px) scale(.985);
+    animation: list-fade 700ms cubic-bezier(.22,.61,.36,1) both;
+    /* liga a animação à rolagem deste próprio elemento */
+    animation-timeline: view();
+    /* quando começar/terminar: do momento que entra até cobrir ~35% */
+    animation-range: entry 15% cover 35%;
+    will-change: transform, opacity;
+  }
+
+  @keyframes list-fade {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* “falso stagger” por coluna (3 colunas desktop) */
+  .grid > *:nth-child(3n+1) { animation-delay: 40ms; }
+  .grid > *:nth-child(3n+2) { animation-delay: 100ms; }
+  .grid > *:nth-child(3n)   { animation-delay: 160ms; }
+
+  /* ajusta o stagger quando vira 2 colunas */
+  @media (max-width: 960px) {
+    .grid > *:nth-child(2n+1) { animation-delay: 40ms; }
+    .grid > *:nth-child(2n)   { animation-delay: 120ms; }
+  }
+
+  /* 1 coluna (mobile): sem delay pra entrar liso */
+  @media (max-width: 560px) {
+    .grid > * { animation-delay: 0ms; }
+  }
+}

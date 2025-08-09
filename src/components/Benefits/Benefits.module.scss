@@ -64,3 +64,46 @@
     line-height: 1.6;
   }
 }
+
+/* ===== Animações de rolagem (Benefits) ===== */
+@media (prefers-reduced-motion: no-preference) {
+  /* cada item dá um leve flip e aparece */
+  .item {
+    opacity: 0;
+    transform-origin: top center;
+    transform: translateY(12px) rotateX(7deg) scale(.985);
+    filter: saturate(.9) brightness(.98);
+    animation: bnf-stack 700ms cubic-bezier(.22,.61,.36,1) both;
+    animation-timeline: view();
+    animation-range: entry 15% cover 30%;
+    will-change: transform, opacity, filter;
+  }
+  @keyframes bnf-stack { to { opacity: 1; transform: none; filter: none; } }
+
+  /* título com “varredura” de linha quando entra na tela */
+  .header {
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, transparent, #1c78c0 40%, transparent 90%);
+    animation: sweep 700ms ease both;
+    animation-timeline: view();
+    animation-range: entry 20% cover 30%;
+  }
+  @keyframes sweep { to { width: 100%; } }
+
+  /* ícone dá um popzinho quando o item entra */
+  .header .icon {
+    transform: translateY(4px) scale(.96);
+    opacity: .85;
+    animation: icon-pop 500ms ease both;
+    animation-timeline: view();
+    animation-range: entry 15% cover 25%;
+  }
+  @keyframes icon-pop { to { transform: none; opacity: 1; } }
+}

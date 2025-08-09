@@ -1,50 +1,46 @@
-// src/components/Portfolio/Portfolio.tsx
-import React, { useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import styles from './Portfolio.module.scss'
+// src/data/projects.ts
+import img1 from '../assets/img1.jpg'
+import img2 from '../assets/img2.jpg'
+import img3 from '../assets/img3.jpg'
+import img4 from '../assets/img4.jpg'
+import img5 from '../assets/img5.jpg'
+import img6 from '../assets/img6.jpg'
+import img7 from '../assets/img7.jpg'
+import img8 from '../assets/img8.png'
+import img9 from '../assets/img9.jpg'
+import img10 from '../assets/img10.jpg'
+import img11 from '../assets/img11.jpg'
+import img12 from '../assets/img12.jpg'
+import img13 from '../assets/img13.jpg'
+import img14 from '../assets/img14.png'
+import img15 from '../assets/img15.jpg'
+import img16 from '../assets/img16.jpg'
+import img17 from '../assets/img17.jpg'
+import img18 from '../assets/img18.jpg'
+import img19 from '../assets/img19.jpg'
+import img20 from '../assets/img20.jpg'
+import img21 from '../assets/img21.jpg'
+import img22 from '../assets/img22.jpg'
+import img23 from '../assets/img23.jpg'
+import img24 from '../assets/img24.jpg'
+import img25 from '../assets/img25.jpg'
+import img26 from '../assets/img26.jpg'
+import img27 from '../assets/img27.png'
+import img28 from '../assets/img28.jpg'
+import img29 from '../assets/img29.png'
+import img30 from '../assets/img30.jpg'
+import img31 from '../assets/img31.jpg'
+import img32 from '../assets/img32.png'
+import img33 from '../assets/img33.jpg'
+import img34 from '../assets/img34.jpg'
 
-import img1 from '../../assets/img1.jpg'
-import img2 from '../../assets/img2.jpg'
-import img3 from '../../assets/img3.jpg'
-import img4 from '../../assets/img4.jpg'
-import img5 from '../../assets/img5.jpg'
-import img6 from '../../assets/img6.jpg'
-import img7 from '../../assets/img7.jpg'
-import img8 from '../../assets/img8.png'
-import img9 from '../../assets/img9.jpg'
-import img10 from '../../assets/img10.jpg'
-import img11 from '../../assets/img11.jpg'
-import img12 from '../../assets/img12.jpg'
-import img13 from '../../assets/img13.jpg'
-import img14 from '../../assets/img14.png'
-import img15 from '../../assets/img15.jpg'
-import img16 from '../../assets/img16.jpg'
-import img17 from '../../assets/img17.jpg'
-import img18 from '../../assets/img18.jpg'
-import img19 from '../../assets/img19.jpg'
-import img20 from '../../assets/img20.jpg'
-import img21 from '../../assets/img21.jpg'
-import img22 from '../../assets/img22.jpg'
-import img23 from '../../assets/img23.jpg'
-import img24 from '../../assets/img24.jpg'
-import img25 from '../../assets/img25.jpg'
-import img26 from '../../assets/img26.jpg'
-import img27 from '../../assets/img27.png'
-import img28 from '../../assets/img28.jpg'
-import img29 from '../../assets/img29.png'
-import img30 from '../../assets/img30.jpg'
-import img31 from '../../assets/img31.jpg'
-import img32 from '../../assets/img32.png'
-import img33 from '../../assets/img33.jpg'
-import img34 from '../../assets/img34.jpg'
-
-interface Project {
+export interface Project {
   id: string
   src: string
   title: string
 }
 
-const allProjects: Project[] = [
+export const allProjects: Project[] = [
   { id: 'vizeu-leiloeiro', src: img1,  title: 'VIZEU LEILOEIRO CONSTRUÇÃO DE NOVA UNIDADE' },
   { id: 'sudameris',       src: img2,  title: 'SUDAMERIS ACESSIBILIDADE ROLL OUT INTEGRAÇÃO BANCO REAL' },
   { id: 'tim-telecom',     src: img3,  title: 'TIM TELEFONIA CELULAR LOJAS' },
@@ -80,48 +76,4 @@ const allProjects: Project[] = [
   { id: 'prefeitura',      src: img33, title: 'PREFEITURA SJC – Recuperação de galeria e pavimentação' },
   { id: 'banco-real',      src: img5,  title: 'BANCO REAL – “Guarda-Chuva” Gerenciamento de Intervenções' },
 ]
-
-export function Portfolio() {
-  const LIMIT = 9
-
-  // embaralha + puxa só 8
-  const projects = useMemo(() => {
-    const arr = [...allProjects]
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[arr[i], arr[j]] = [arr[j], arr[i]]
-    }
-    return arr.slice(0, LIMIT)
-  }, [])
-
-  const hasMore = allProjects.length > LIMIT
-
-  return (
-    <section id="portfólio" className={styles.portfolioSection}>
-      <h2 className={styles.title}>Portfólio</h2>
-
-      <div className={styles.grid}>
-        {projects.map((proj) => (
-          <Link
-            key={proj.id}
-            to={`/portfolio/${proj.id}`}
-            className={styles.item}
-          >
-            <img src={proj.src} alt={proj.title} />
-            <div className={styles.overlay}>{proj.title}</div>
-          </Link>
-        ))}
-      </div>
-
-      {hasMore && (
-        <div className={styles.actions}>
-          <Link to="/portfolio" className={styles.moreBtn}>
-            Ver todos os projetos ({allProjects.length}) →
-          </Link>
-        </div>
-      )}
-    </section>
-  )
-}
-
-export default Portfolio
+export default allProjects

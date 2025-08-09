@@ -1,85 +1,157 @@
-/* Navbar.module.scss */
+:root {
+  --nav-w: 1200px;
+  --nav-h: 76px;
+  --pad: 12px;
 
+  /* texto escuro */
+  --ink: #0f172a;   /* quase preto */
+  --muted: #334155;
+
+  /* azul da marca */
+  --cta: #1c78c0;
+  --cta-hover: #165f96;
+}
+
+/* header fixo (o card fica dentro) */
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 0; left: 0; right: 0;
+  padding: var(--pad);
+  background: transparent;
   z-index: 1000;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  background-color: transparent;
-  box-shadow: none;
+  transition: padding .2s ease;
 }
+.scrolled { padding: 8px 12px; }
 
-.scrolled {
-  background-color: rgba(0, 0, 0, 0.85);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.container {
-  max-width: 1200px;
+.inner {
+  max-width: min(var(--nav-w), 100%);
   margin: 0 auto;
+}
+
+/* ===== Card branco ===== */
+.bar {
+  background: #fff;
+  color: var(--ink);                 /* <- cor base escura */
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.25);
+  padding: 12px 18px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+.logo { height: 64px; width: auto; display: block; }
+.brand { display: inline-block; }
+
+.navLinks {
+  display: none;            /* aparece >= 960px */
+  justify-content: center;
+  gap: 26px;
+
+}
+
+.link {
+  text-decoration: none;
+  color: var(--ink);        /* <- escuro */
+  font-weight: 600;
+  letter-spacing: .2px;
+  opacity: 1;
+  transition: color .15s ease, opacity .15s ease;
+}
+.link:hover { color: #0b2d4a; }
+
+/* ===== Ações à direita ===== */
+.actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
 }
 
-.logo {
-  height: 100px;
-  width: 200px;
-  flex: 0 0 auto;
-}
-
-/* Nav horizontal: só em desktop */
-.navLinks {
-  margin-left: auto;
-  display: none;  /* escondido em mobile */
-  gap: 2rem;
-
-  a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-    &:hover { color: var(--color-primary); }
-  }
-
-  @media (min-width: 768px) {
-    display: flex;  /* mostra em md+ */
-  }
-}
-
-/* Botão hambúrguer: só em mobile */
-.toggle {
-  background: none;
-  border: none;
+.cta {
+  display: inline-block;
+  background: var(--cta);
   color: #fff;
-  font-size: 1.5rem;
-  margin-left: auto;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(28,120,192,.35);
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+}
+.cta:hover {
+  background: var(--cta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(28,120,192,.45);
+}
+
+/* ===== Botão hambúrguer (mobile) ===== */
+.toggle {
+  display: inline-grid;
+  place-items: center;
+  background: transparent;
+  border: none;
+  color: var(--ink);        /* <- escuro */
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px;
   cursor: pointer;
-
-  @media (min-width: 768px) {
-    display: none; /* esconde em md+ */
-  }
 }
 
-/* Menu mobile que aparece ao clicar no toggle */
+/* ===== Menu mobile (renderizado quando open=true) ===== */
 .mobileMenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.95);
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0;
+  margin-top: 8px;
+  background: #fff;
+  color: var(--ink);        /* <- escuro */
+  border-radius: 14px;
+  box-shadow: 0 12px 26px rgba(0,0,0,.22);
+  padding: 12px 14px;
 
-  a {
-    color: #fff;
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    border-bottom: 1px solid #333;
-    transition: background 0.2s;
-    &:hover { background: rgba(255,255,255,0.1); }
-  }
+  display: grid;
+  gap: 8px;
 }
+
+.mobileMenu a {
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 600;
+  padding: 10px 8px;
+  border-radius: 10px;
+}
+.mobileMenu a:hover { background: rgba(0,0,0,.04); }
+
+.mobileCta {
+  margin-top: 6px;
+  background: var(--cta);
+  color: #fff !important;
+  text-align: center;
+  font-weight: 700 !important;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+/* ===== Responsivo ===== */
+@media (min-width: 960px) {
+  .navLinks { display: flex; }
+  .toggle   { display: none; }
+  .mobileMenu { display: none !important; }
+}
+
+/* FORÇA cor escura em todos os anchors do card */
+.bar a,
+.bar .link,
+.navLinks a,
+.navLinks a:link,
+.navLinks a:visited {
+  color: #414141 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+

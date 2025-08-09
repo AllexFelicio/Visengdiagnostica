@@ -2,7 +2,7 @@
 
 
 .contactSection {
-  background: #1f2937;       /* fundo escuro */
+  background: #111;       /* fundo escuro */
   color: #fff;
   padding: 4rem 2rem;
 }
@@ -67,4 +67,57 @@
 
 .form button:hover {
   filter: brightness(0.9);
+}
+
+/* ===== Animações de rolagem (Contact) — sem mexer no JSX ===== */
+@media (prefers-reduced-motion: no-preference) {
+  /* a seção inteira dá um fade leve ao entrar */
+  .contactSection {
+    animation: contact-section-fade 500ms ease both;
+    animation-timeline: view();
+    animation-range: entry 6% cover 14%;
+  }
+  @keyframes contact-section-fade {
+    from { opacity: .001; }
+    to   { opacity: 1; }
+  }
+
+  /* o container sobe suave com um leve blur */
+  .contactContainer {
+    opacity: 0;
+    transform: translateY(18px) scale(.985);
+    filter: blur(1.5px);
+    animation: contact-rise 700ms cubic-bezier(.22,.61,.36,1) both;
+    animation-timeline: view();
+    animation-range: entry 18% cover 32%;
+    will-change: transform, opacity, filter;
+  }
+  @keyframes contact-rise {
+    to { opacity: 1; transform: none; filter: none; }
+  }
+
+  /* stagger nos filhos diretos do form (inputs, textarea, button) */
+  .form > * {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: contact-field-in 600ms ease both;
+    animation-timeline: view();
+    animation-range: entry 28% cover 40%;
+    will-change: transform, opacity;
+  }
+  .form > *:nth-child(1) { animation-delay: 40ms; }
+  .form > *:nth-child(2) { animation-delay: 80ms; }
+  .form > *:nth-child(3) { animation-delay: 120ms; }
+  .form > *:nth-child(4) { animation-delay: 160ms; }
+  .form > *:nth-child(5) { animation-delay: 200ms; }
+
+  @keyframes contact-field-in {
+    to { opacity: 1; transform: none; }
+  }
+}
+
+/* Fallback: se o navegador não suporta animation-timeline:view(), garante visível */
+@supports not (animation-timeline: view()) {
+  .contactContainer,
+  .form > * { opacity: 1; transform: none; filter: none; }
 }

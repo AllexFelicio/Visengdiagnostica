@@ -5,12 +5,19 @@
   color: #fff;
   padding: 4rem 2rem;
   text-align: center;
+
+  /* evita colapso da margin-top do primeiro filho (título) */
+  display: flow-root;
+
+  /* quando navegar por #serviços, compensa o navbar fixo */
+  scroll-margin-top: calc(var(--nav-h, 76px) + 16px);
 }
 
 .servicesTitle {
   font-size: 2.5rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem; /* zera topo pra não “morder” o Hero */
+  line-height: 1.15;
 }
 
 .servicesSubtitle {
@@ -63,4 +70,26 @@
     color: #ddd;
     line-height: 1.4;
   }
+}
+
+/* ===== Scroll-in nos CARDS dos serviços ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .servicesGrid > .card {
+    opacity: 0;
+    transform: translateX(-24px);
+    animation: slide-right 700ms cubic-bezier(.22,.61,.36,1) both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+    will-change: transform, opacity;
+  }
+
+  @keyframes slide-right {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* leve stagger em fila */
+  .servicesGrid > .card:nth-child(1) { animation-delay: 60ms; }
+  .servicesGrid > .card:nth-child(2) { animation-delay: 120ms; }
+  .servicesGrid > .card:nth-child(3) { animation-delay: 180ms; }
+  .servicesGrid > .card:nth-child(4) { animation-delay: 240ms; }
 }

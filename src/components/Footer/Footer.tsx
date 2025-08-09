@@ -7,7 +7,7 @@ export function Footer() {
       <p>
         Desenvolvido por{' '}
         <a href="https://steelside.com.br" target="_blank" rel="noopener noreferrer">
-          Steelside
+          AF Tecnologia
         </a>
       </p>
     </footer>
