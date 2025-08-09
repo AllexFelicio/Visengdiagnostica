@@ -743,9 +743,6 @@ const works: Work[] = [
   },
 ]
 
-// mantém seus imports de React, router, Navbar, Footer, styles
-// mantém também seus imports de imagens e o const works: Work[] como já estão acima
-
 export default function PortfolioDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -757,7 +754,7 @@ export default function PortfolioDetail() {
   )
 
   const [current, setCurrent] = useState<number>(initialIndex >= 0 ? initialIndex : 0)
-  const [imgIndex, setImgIndex] = useState(0) // índice da imagem dentro da obra
+  const [imgIndex, setImgIndex] = useState(0)
 
   // LIGHTBOX + ZOOM
   const [lbOpen, setLbOpen] = useState(false)
@@ -781,19 +778,22 @@ export default function PortfolioDetail() {
   const work = works[current]
   if (!work) return <p className={styles.notFound}>Obra não encontrada.</p>
 
-  // navegação entre obras
+  // navegação entre OBRAS (teclado)
   const prevWork = () => setCurrent(c => (c - 1 + works.length) % works.length)
   const nextWork = () => setCurrent(c => (c + 1) % works.length)
 
-  // atalhos de teclado (respeita lightbox aberto)
+  // navegação entre IMAGENS da obra atual (setas visíveis)
+  const hasMulti = work.images.length > 1
+  const prevImg = () => setImgIndex(i => (i - 1 + work.images.length) % work.images.length)
+  const nextImg = () => setImgIndex(i => (i + 1) % work.images.length)
+
+  // atalhos de teclado – se o lightbox estiver aberto, controlam imagens; senão, obras
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (lbOpen) {
         if (e.key === 'Escape') return closeLightbox()
-        if (e.key === 'ArrowLeft')
-          return setImgIndex(i => (i - 1 + work.images.length) % work.images.length)
-        if (e.key === 'ArrowRight')
-          return setImgIndex(i => (i + 1) % work.images.length)
+        if (e.key === 'ArrowLeft') return prevImg()
+        if (e.key === 'ArrowRight') return nextImg()
         return
       }
       if (e.key === 'ArrowLeft') prevWork()
@@ -802,8 +802,7 @@ export default function PortfolioDetail() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lbOpen, work.images.length, navigate])
+  }, [lbOpen, navigate, work.images.length])
 
   // título da aba
   useEffect(() => {
@@ -816,25 +815,13 @@ export default function PortfolioDetail() {
   useEffect(() => {
     if (!lbOpen || scale === 1) return
     let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0
-
-    const down = (e: MouseEvent) => {
-      dragging = true
-      sx = e.clientX; sy = e.clientY
-      ox = tx; oy = ty
-      e.preventDefault()
-    }
-    const move = (e: MouseEvent) => {
-      if (!dragging) return
-      setTx(ox + (e.clientX - sx))
-      setTy(oy + (e.clientY - sy))
-    }
+    const down = (e: MouseEvent) => { dragging = true; sx = e.clientX; sy = e.clientY; ox = tx; oy = ty; e.preventDefault() }
+    const move = (e: MouseEvent) => { if (dragging) { setTx(ox + (e.clientX - sx)); setTy(oy + (e.clientY - sy)) } }
     const up = () => { dragging = false }
-
     const target = document.getElementById('lb-img-wrap')
     target?.addEventListener('mousedown', down)
     window.addEventListener('mousemove', move)
     window.addEventListener('mouseup', up)
-
     return () => {
       target?.removeEventListener('mousedown', down)
       window.removeEventListener('mousemove', move)
@@ -848,57 +835,49 @@ export default function PortfolioDetail() {
       <div className={styles.bgFx} aria-hidden="true" />
 
       <main className={styles.container}>
-        <button
-          className={styles.back}
-          onClick={() => navigate(-1)}
-          aria-label="Voltar"
-        >
-          ← Voltar
-        </button>
+        <button className={styles.back} onClick={() => navigate(-1)} aria-label="Voltar">← Voltar</button>
 
         <header className={styles.header}>
           <h1 className={styles.title}>{work.title}</h1>
-          <span className={styles.counter}>
-            {current + 1} / {works.length}
-          </span>
+          <span className={styles.counter}>{current + 1} / {works.length}</span>
         </header>
 
         <section className={styles.topSection}>
           {/* Galeria da obra atual */}
           <div className={styles.imageCard}>
-            {/* setas mudam de OBRA */}
-            <button
-              data-nav="prev"
-              className={styles.navBtn}
-              onClick={prevWork}
-              aria-label="Obra anterior"
-              title="Obra anterior"
-            >
-              ‹
-            </button>
+            {/* setas agora mudam de IMAGEM (só aparecem se tiver mais de uma) */}
+            {hasMulti && (
+              <button
+                data-nav="prev"
+                className={styles.navBtn}
+                onClick={prevImg}
+                aria-label="Imagem anterior"
+                title="Imagem anterior"
+              >‹</button>
+            )}
 
             <img
               src={work.images[imgIndex]}
               alt={`${work.title} — imagem ${imgIndex + 1}`}
               className={styles.image}
-              onClick={() => openLightbox(imgIndex)}  // clique abre o lightbox
+              onClick={() => openLightbox(imgIndex)}
               style={{ cursor: 'zoom-in' }}
               loading="eager"
               decoding="async"
             />
 
-            <button
-              data-nav="next"
-              className={styles.navBtn}
-              onClick={nextWork}
-              aria-label="Próxima obra"
-              title="Próxima obra"
-            >
-              ›
-            </button>
+            {hasMulti && (
+              <button
+                data-nav="next"
+                className={styles.navBtn}
+                onClick={nextImg}
+                aria-label="Próxima imagem"
+                title="Próxima imagem"
+              >›</button>
+            )}
 
-            {/* Miniaturas para trocar a imagem DENTRO da obra */}
-            {work.images.length > 1 && (
+            {/* Miniaturas */}
+            {hasMulti && (
               <div className={styles.thumbStrip} role="tablist" aria-label="Mais imagens desta obra">
                 {work.images.map((src, i) => (
                   <button
@@ -939,25 +918,17 @@ export default function PortfolioDetail() {
         </section>
       </main>
 
-      {/* ===== LIGHTBOX / ZOOM ===== */}
+      {/* LIGHTBOX / ZOOM */}
       {lbOpen && (
         <div className={styles.lightbox} role="dialog" aria-modal="true" aria-label="Visualização da imagem">
           <div className={styles.lbBackdrop} onClick={closeLightbox} />
           <div className={styles.lbDialog}>
             <button className={styles.lbClose} onClick={closeLightbox} aria-label="Fechar">×</button>
 
-            {work.images.length > 1 && (
+            {hasMulti && (
               <>
-                <button
-                  className={styles.lbPrev}
-                  onClick={() => { setImgIndex(i => (i - 1 + work.images.length) % work.images.length); resetZoom(); }}
-                  aria-label="Anterior"
-                >‹</button>
-                <button
-                  className={styles.lbNext}
-                  onClick={() => { setImgIndex(i => (i + 1) % work.images.length); resetZoom(); }}
-                  aria-label="Próxima"
-                >›</button>
+                <button className={styles.lbPrev} onClick={() => { prevImg(); resetZoom(); }} aria-label="Anterior">‹</button>
+                <button className={styles.lbNext} onClick={() => { nextImg(); resetZoom(); }} aria-label="Próxima">›</button>
               </>
             )}
 
@@ -965,7 +936,7 @@ export default function PortfolioDetail() {
               id="lb-img-wrap"
               className={styles.lbImgWrap}
               style={{ cursor: scale === 1 ? 'zoom-in' : 'grab' }}
-              onDoubleClick={() => setScale(s => s === 1 ? 2 : 1)} // 2x no duplo clique
+              onDoubleClick={() => setScale(s => s === 1 ? 2 : 1)}
             >
               <img
                 className={styles.lbImage}
@@ -989,3 +960,4 @@ export default function PortfolioDetail() {
     </>
   )
 }
+

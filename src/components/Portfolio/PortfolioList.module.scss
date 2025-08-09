@@ -11,17 +11,38 @@
   --cta-hover: #165f96;
 }
 
+/* ===== Fundo com glow (igual ao Quem Somos/Serviços) ===== */
+.page {
+  position: relative;
+  min-height: 100dvh;
+  isolation: isolate; /* cria stacking context p/ o z-index funcionar certinho */
+}
+
+.bgFx {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* NUNCA -1 (senão some atrás do <body>) */
+  background:
+    radial-gradient(900px 420px at 10% -10%, rgba(28,120,192,.25), transparent 60%),
+    radial-gradient(800px 360px at 110% 0%, rgba(22,95,150,.22), transparent 55%),
+    linear-gradient(180deg, #081019 0%, var(--bg) 100%);
+}
+
+/* ===== Conteúdo ===== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: clamp(16px, 3vw, 28px);
   color: var(--text);
+  margin-top: 7.5rem; /* espaço pro navbar "em card" */
 
-  /* espaço pro navbar flutuante em card */
-  margin-top: 7.5rem;
+  position: relative; /* fica acima do glow */
+  z-index: 1;
 }
 
 .header { margin-bottom: 10px; }
+
 .headline h1 {
   margin: 0 0 6px;
   font-size: clamp(1.6rem, 1rem + 2vw, 2.2rem);
@@ -60,6 +81,11 @@
   outline: none;
 }
 .search::placeholder { color: color-mix(in srgb, var(--muted) 85%, transparent); }
+.search:focus {
+  border-color: rgba(255,255,255,.26);
+  box-shadow: 0 0 0 4px rgba(28,120,192,.18);
+}
+
 .clear {
   position: absolute; right: 6px; top: 50%;
   transform: translateY(-50%);
@@ -123,7 +149,7 @@
 
 .card img {
   width: 100%;
-  aspect-ratio: 16 / 10;   /* mantém padronizado */
+  aspect-ratio: 16 / 10;
   object-fit: cover;
   display: block;
   transform: scale(1.02);
@@ -168,14 +194,11 @@
 
 /* ===== Scroll-in nos cards da LISTA ===== */
 @media (prefers-reduced-motion: no-preference) {
-  /* cada card anima quando entra na viewport */
   .card {
     opacity: 0;
     transform: translateY(18px) scale(.985);
     animation: list-fade 700ms cubic-bezier(.22,.61,.36,1) both;
-    /* liga a animação à rolagem deste próprio elemento */
     animation-timeline: view();
-    /* quando começar/terminar: do momento que entra até cobrir ~35% */
     animation-range: entry 15% cover 35%;
     will-change: transform, opacity;
   }
@@ -189,13 +212,11 @@
   .grid > *:nth-child(3n+2) { animation-delay: 100ms; }
   .grid > *:nth-child(3n)   { animation-delay: 160ms; }
 
-  /* ajusta o stagger quando vira 2 colunas */
   @media (max-width: 960px) {
     .grid > *:nth-child(2n+1) { animation-delay: 40ms; }
     .grid > *:nth-child(2n)   { animation-delay: 120ms; }
   }
 
-  /* 1 coluna (mobile): sem delay pra entrar liso */
   @media (max-width: 560px) {
     .grid > * { animation-delay: 0ms; }
   }
