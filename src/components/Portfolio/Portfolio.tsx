@@ -37,6 +37,7 @@ import img31 from '../../assets/img31.jpg'
 import img32 from '../../assets/img32.png'
 import img33 from '../../assets/img33.jpg'
 import img34 from '../../assets/img34.jpg'
+import img35 from '../../assets/img34.jpg'
 
 interface Project {
   id: string
@@ -79,19 +80,38 @@ const allProjects: Project[] = [
   { id: 'saaeportofeliz',  src: img32, title: 'SAAE PORTO FELIZ – Esgoto Sanitário' },
   { id: 'prefeitura',      src: img33, title: 'PREFEITURA SJC – Recuperação de galeria e pavimentação' },
   { id: 'banco-real',      src: img5,  title: 'BANCO REAL – “Guarda-Chuva” Gerenciamento de Intervenções' },
+  { id: 'banco-real',      src: img5,  title: 'BANCO REAL – “Guarda-Chuva” Gerenciamento de Intervenções' },
 ]
+
+// ids que SEMPRE ficam no topo (na ordem listada)
+const PINNED_IDS: string[] = ['vizeu-leiloeiro']
+// se quiser mais de um, adicione aqui: ['vizeu-leiloeiro','citibank',...]
+
+function shuffle<T>(arr: T[]) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
 
 export function Portfolio() {
   const LIMIT = 9
 
-  // embaralha + puxa só 8
   const projects = useMemo(() => {
-    const arr = [...allProjects]
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[arr[i], arr[j]] = [arr[j], arr[i]]
-    }
-    return arr.slice(0, LIMIT)
+    // pega os fixos na ordem declarada (se existirem)
+    const pinned = PINNED_IDS
+      .map(id => allProjects.find(p => p.id === id))
+      .filter((p): p is Project => Boolean(p))
+
+    // pool sem os fixos
+    const pool = allProjects.filter(p => !PINNED_IDS.includes(p.id))
+
+    // embaralha e completa até o limite
+    const needed = Math.max(0, LIMIT - pinned.length)
+    const randoms = shuffle([...pool]).slice(0, needed)
+
+    return [...pinned, ...randoms]
   }, [])
 
   const hasMore = allProjects.length > LIMIT
@@ -102,11 +122,7 @@ export function Portfolio() {
 
       <div className={styles.grid}>
         {projects.map((proj) => (
-          <Link
-            key={proj.id}
-            to={`/portfolio/${proj.id}`}
-            className={styles.item}
-          >
+          <Link key={proj.id} to={`/portfolio/${proj.id}`} className={styles.item}>
             <img src={proj.src} alt={proj.title} />
             <div className={styles.overlay}>{proj.title}</div>
           </Link>

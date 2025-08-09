@@ -31,10 +31,7 @@ export function About() {
             </p>
             <p>
               Hoje a empresa tem know how comprovado e estrutura organizacional para atuar tanto nas
-              áreas residenciais, como industriais e corporativas.
-            </p>
-            <p>
-              inclusive com a utilização dos Sistema LIGHT STEEL FRAME, que vem se tornando o método construtivo mais eficiente e vantajoso do mercado.
+              áreas residenciais, como industriais e corporativas, inclusive com a utilização dos Sistema LIGHT STEEL FRAME, que vem se tornando o método construtivo mais eficiente e vantajoso do mercado.
             </p>
           </div>
         </div>
