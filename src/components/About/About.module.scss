@@ -1,0 +1,128 @@
+@use '../../styles/variables' as *;
+
+/* seção */
+.aboutSection {
+  position: relative;
+  background: #0a0e14;  /* escuro elegante */
+  color: #eaf1ff;
+  padding: clamp(48px, 8vw, 88px) 16px;
+  scroll-margin-top: calc(var(--nav-h, 76px) + 16px);
+  display: flow-root; /* evita colapso de margin */
+}
+
+/* glow de fundo */
+.bgFx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(900px 420px at 10% -10%, rgba(28,120,192,.25), transparent 60%),
+    radial-gradient(800px 360px at 110% 0%, rgba(22,95,150,.22), transparent 55%),
+    linear-gradient(180deg, #081019 0%, #0a0e14 100%);
+}
+
+/* conteúdo central */
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+/* card “glass” */
+.panel {
+  background: rgba(255,255,255, .06);
+  border: 1px solid rgba(255,255,255, .12);
+  border-radius: 18px;
+  box-shadow: 0 16px 44px rgba(0,0,0,.35);
+  backdrop-filter: blur(8px);
+  padding: clamp(18px, 3.2vw, 26px);
+}
+
+/* cabeçalho */
+.head {
+  display: grid;
+  gap: 10px;
+  margin-bottom: clamp(14px, 2.2vw, 18px);
+}
+
+/* selo superior */
+.kicker {
+  display: inline-block;
+  align-self: start;
+  font-weight: 800;
+  letter-spacing: .14em;
+  font-size: .78rem;
+  color: #cfe5ff;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(28,120,192,.12);
+  border: 1px solid rgba(28,120,192,.25);
+}
+
+/* linha animada abaixo do kicker */
+.rule {
+  height: 3px;
+  border-radius: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #1c78c0, #165f96);
+  transform-origin: left center;
+}
+
+/* texto */
+.copy {
+  display: grid;
+  gap: 12px;
+  line-height: 1.7;
+  color: #dfe7f6;
+  font-size: clamp(1rem, .95rem + .2vw, 1.05rem);
+}
+
+.copy p { margin: 0; }
+
+/* animações de scroll (CSS puro) */
+@media (prefers-reduced-motion: no-preference) {
+  /* painel entra sutilmente */
+  .panel {
+    opacity: 0;
+    transform: translateY(18px) scale(.985);
+    animation: about-in 700ms cubic-bezier(.22,.61,.36,1) both;
+    /* anima conforme entra na viewport */
+    animation-timeline: view();
+    animation-range: entry 15% cover 30%;
+    will-change: transform, opacity;
+  }
+  @keyframes about-in { to { opacity: 1; transform: none; } }
+
+  /* linha cresce de 0 → 1 */
+  .rule {
+    transform: scaleX(0);
+    animation: rule-grow 700ms cubic-bezier(.22,.61,.36,1) both;
+    animation-timeline: view();
+    animation-range: entry 20% cover 35%;
+  }
+  @keyframes rule-grow { to { transform: scaleX(1); } }
+
+  /* parágrafos sobem com leve “stagger” */
+  .copy p {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: p-rise 650ms cubic-bezier(.22,.61,.36,1) both;
+    animation-timeline: view();
+    animation-range: entry 20% cover 35%;
+    will-change: transform, opacity;
+  }
+  .copy p:nth-child(1) { animation-delay: 60ms; }
+  .copy p:nth-child(2) { animation-delay: 120ms; }
+  .copy p:nth-child(3) { animation-delay: 180ms; }
+  .copy p:nth-child(4) { animation-delay: 240ms; }
+
+  @keyframes p-rise { to { opacity: 1; transform: none; } }
+}
+
+/* layout responsivo simples (mantém uma coluna, bom pra texto) */
+@media (min-width: 980px) {
+  .panel { padding: clamp(24px, 3vw, 32px); }
+}

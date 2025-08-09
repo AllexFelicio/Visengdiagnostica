@@ -46,7 +46,7 @@ export function Navbar() {
     }
   }
 
-  // Clique em links com hash (Benefícios, Serviços, Contato)
+  // Clique em links com hash (Sobre, Benefícios, Serviços, Contato…)
   const handleHashClick = (to: string) => (e: React.MouseEvent) => {
     e.preventDefault()
     setOpen(false)
@@ -71,6 +71,7 @@ export function Navbar() {
 
   const links: NavItem[] = [
     { label: 'Inicio',     to: '/',            type: 'route' },
+    { label: 'Quem Somos',      to: '/#sobre',      type: 'hash'  },
     { label: 'Benefícios', to: '/#benefícios', type: 'hash'  },
     { label: 'Serviços',   to: '/#serviços',   type: 'hash'  },
     { label: 'Portfólio',  to: '/portfolio',   type: 'route' },

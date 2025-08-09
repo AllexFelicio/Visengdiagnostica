@@ -7,7 +7,7 @@ export function Hero() {
         <h1 className={styles.title}>
           Projeto e Gerenciamento de Obras
         </h1>
-        <a href="#serviços" className={styles.button}>
+        <a href="/#sobre" className={styles.button}>
           Saiba mais
         </a>
       </div>
