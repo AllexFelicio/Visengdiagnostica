@@ -40,6 +40,8 @@ import img31 from '../../assets/img31.jpg'
 import img32 from '../../assets/img32.png'
 import img33 from '../../assets/img33.jpg'
 import img34 from '../../assets/img34.jpg'
+import img35 from '../../assets/img35.jpg'
+import img36 from '../../assets/img36.jpg'
 
 interface Work {
   id: string
@@ -688,6 +690,38 @@ const works: Work[] = [
       'Além do gerenciamento das construtoras, a DHARO gerencia todos os demais fornecedores relacionados com mobiliário, comunicação visual, carenagens, equipamentos etc.',
       'As agências do banco estão espalhadas por todo o território nacional, entretanto, por questões comerciais, a DHARO atende os estados de São Paulo, Rio de Janeiro, Paraná, Santa Catarina, Rio Grande do Sul, Mato Grosso e Mato Grosso do Sul.',
       'Nossas equipes estão preparadas para atender qualquer intervenção em agências, a qualquer tempo, seja para adequações, reformas ou abertura de pontos de venda.',
+    ],
+  },
+  {
+    id: 'morada-dos-passaros',
+    src: img35,
+    title: 'Residência Alto Padrão Sistema Convencional Residencial Morada dos Pássaros – Barueri - SP',
+    details: [
+      { label: 'Projeto', value: 'Residência Alto Padrão Sistema Convencional' },
+      { label: 'Cliente', value: 'Pessoa Fisica' },
+      { label: 'Valor gerenciado', value: 'Confidencial' },
+      { label: 'Duração', value: 'Obra em andamento – previsão de término 2025' },
+      { label: 'Área', value: 'Área Terreno: 1100 m2 / Área Construída: 750 m2' },
+      { label: 'Escopo', value: '' },
+    ],
+    description: [
+      '', 
+    ],
+  },
+  {
+    id: 'residencial-rivieira',
+    src: img36,
+    title: 'Residência Alto Padrão no Sistema Light Steel Frame Riviera de Santa Cristina XIII – Paranapanema - SP',
+    details: [
+      { label: 'Projeto', value: 'Residência Alto Padrão no Sistema Light Steel Frame' },
+      { label: 'Cliente', value: 'Pessoa Fisica' },
+      { label: 'Valor gerenciado', value: 'R$ 800.000' },
+      { label: 'Duração', value: 'Obra em andamento – previsão de término 2025' },
+      { label: 'Área', value: 'Área Terreno: 450 m2 / Área Construída: 250 m2' },
+      { label: 'Escopo', value: '' },
+    ],
+    description: [
+     '',
     ],
   },
 ]
