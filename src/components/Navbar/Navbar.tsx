@@ -72,9 +72,9 @@ export function Navbar() {
   const links: NavItem[] = [
     { label: 'Inicio',     to: '/',            type: 'route' },
     { label: 'Quem Somos',      to: '/#sobre',      type: 'hash'  },
-    { label: 'Benefícios', to: '/#benefícios', type: 'hash'  },
-    { label: 'Serviços',   to: '/#serviços',   type: 'hash'  },
+    { label: 'Serviços', to: '/#serviços', type: 'hash'  },
     { label: 'Portfólio',  to: '/portfolio',   type: 'route' },
+    { label: 'Benefícios',   to: '/#benefícios',   type: 'hash'  },
     { label: 'Contato',    to: '/#contato',    type: 'hash'  },
   ]
 
