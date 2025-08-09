@@ -3,19 +3,24 @@
   --nav-h: 76px;
   --pad: 12px;
 
+  /* cores */
   --ink: #0f172a;      /* preto/quase preto */
   --muted: #334155;
 
+  /* azul da marca */
   --cta: #1c78c0;
   --cta-hover: #165f96;
 
-   --logo-slot: 64px;     /* altura usada no layout (não muda o navbar) */
-  --logo-scale: 1.28;    /* quanto a logo cresce sem afetar o layout */
+  /* logo: espaço reservado x crescimento visual + teto */
+  --logo-slot: 64px;   /* altura usada no layout (não altera o navbar) */
+  --logo-scale: 1.20;  /* quanto a logo cresce visualmente */
+  --logo-cap: 92px;    /* ALTURA VISUAL MÁXIMA da logo */
 }
 
 /* Header fixo */
 .header {
-  position: fixed; top: 0; left: 0; right: 0;
+  position: fixed;
+  top: 0; left: 0; right: 0;
   padding: var(--pad);
   background: transparent;
   z-index: 1000;
@@ -42,27 +47,28 @@
   -moz-osx-font-smoothing: auto;
 }
 
-/* posicionamento fixo no grid */
+/* ===== Logo com “teto” de altura visual ===== */
 .brand {
   display: inline-block;
   grid-column: 1 / 2;
 
-  /* fixa a “vaga” da logo no layout */
+  /* reserva de espaço no layout */
   height: var(--logo-slot);
   display: grid;
   align-items: center;
 }
 
 .logo {
-  height: var(--logo-slot);
+  /* Garante que (altura_real * scale) nunca ultrapasse --logo-cap */
+  height: min(var(--logo-slot), calc(var(--logo-cap) / var(--logo-scale)));
   width: auto;
   display: block;
 
-  /* cresce visualmente sem alterar o fluxo */
   transform: scale(var(--logo-scale));
   transform-origin: left center;
   will-change: transform;
 }
+
 .navLinks { grid-column: 2 / 3; }
 .actions  { grid-column: 3 / 4; justify-self: end; }
 
@@ -101,12 +107,15 @@
   box-shadow: 0 6px 18px rgba(28,120,192,.35);
   transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
 }
-.cta:hover { background: var(--cta-hover); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(28,120,192,.45); }
+.cta:hover {
+  background: var(--cta-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(28,120,192,.45);
+}
 
 /* ===== Hambúrguer preto com animação ===== */
 .toggle {
-  /* força preto e opacidade total */
-  color: #000 !important;
+  color: #000 !important;   /* sempre preto */
   opacity: 1 !important;
   filter: none !important;
   text-shadow: none !important;
@@ -166,9 +175,7 @@
   transform-origin: top;
   animation: menu-in .18s ease forwards;
 }
-@keyframes menu-in {
-  to { opacity: 1; transform: none; }
-}
+@keyframes menu-in { to { opacity: 1; transform: none; } }
 
 /* Links do mobile – preto garantido */
 .mobileMenu a {
@@ -193,7 +200,7 @@
   border-radius: 10px;
 }
 
-/* Responsivo */
+/* ===== Responsivo ===== */
 @media (min-width: 960px) {
   .navLinks { display: flex; }
   .toggle   { display: none; }              /* esconde o hambúrguer no desktop */
@@ -201,12 +208,16 @@
   .cta { display: inline-block; }           /* desktop: mostra o CTA */
 }
 
-/* pequenos refinamentos mobile */
+/* Ajustes mobile + escalas da logo */
 @media (max-width: 959px) {
   .toggle { margin-left: 10px; } /* dá um respiro da logo */
+  .brand { --logo-scale: 1.35; } /* cresce no tablet/landscape */
 }
-@media (max-width: 420px) {
-  .logo { height: 56px; }
+@media (max-width: 640px) {
+  .brand { --logo-scale: 1.48; }
+}
+@media (max-width: 460px) {
+  .brand { --logo-scale: 1.58; }
 }
 
 /* Garantia extra de cor escura nos links do card */
