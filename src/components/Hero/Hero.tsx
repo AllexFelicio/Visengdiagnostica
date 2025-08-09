@@ -5,7 +5,7 @@ export function Hero() {
     <section id="home" className={styles.hero}>
       <div className={styles.content}>
         <h1 className={styles.title}>
-          Projeto e Gerenciamento de Obras
+          Construções Inteligentes
         </h1>
         <a href="/#sobre" className={styles.button}>
           Saiba mais
