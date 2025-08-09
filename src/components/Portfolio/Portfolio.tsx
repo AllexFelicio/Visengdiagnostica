@@ -1,5 +1,5 @@
 // src/components/Portfolio/Portfolio.tsx
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Portfolio.module.scss'
 

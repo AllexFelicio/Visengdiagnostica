@@ -1,5 +1,5 @@
 // src/pages/PortfolioDetail.tsx
-import React, { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
 import { Footer } from '../../components/Footer/Footer'
