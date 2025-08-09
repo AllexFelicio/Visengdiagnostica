@@ -110,10 +110,10 @@
 
 .image {
   position: absolute;
-  inset: 0;          /* top/right/bottom/left = 0 */
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* preenche sem sobras */
+  object-fit: cover;
   object-position: center;
   display: block;
   user-select: none;
@@ -124,7 +124,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 3; /* acima das thumbs */
 
   width: 44px;
   height: 44px;
@@ -158,7 +158,97 @@
 
 @media (max-width: 520px) {
   .navBtn { width: 38px; height: 38px; font-size: 22px; }
-  .imageCard { height: 44vh; } /* ajusta a altura no mobile */
+  .imageCard { height: 44vh; }
+}
+
+/* ======== Faixa de miniaturas (thumbs) ======== */
+.thumbStrip {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.42);
+  backdrop-filter: blur(6px);
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+
+  /* escondendo scrollbar, sem remover acessibilidade */
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+.thumbStrip::-webkit-scrollbar { display: none; }
+
+/* fade nas bordas para um look mais limpo (webkit e padrão) */
+.thumbStrip {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+}
+
+.thumb {
+  flex: 0 0 auto;
+  width: 74px;
+  aspect-ratio: 16 / 10; /* mini wide */
+  border-radius: 8px;
+
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.22);
+  background: #0b0f16;
+  overflow: hidden;
+  cursor: pointer;
+
+  display: block; /* <button> reset visual */
+  appearance: none;
+  outline: none;
+
+  scroll-snap-align: start;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, opacity .15s ease;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    filter: saturate(.98) contrast(1.02);
+    transition: filter .15s ease, transform .2s ease;
+  }
+
+  &:hover {
+    border-color: rgba(255,255,255,.35);
+    transform: translateY(-1px);
+    img { transform: scale(1.04); }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--cta);
+    outline-offset: 2px;
+  }
+}
+
+.thumb.active {
+  border-color: var(--cta);
+  box-shadow: 0 8px 20px rgba(28,120,192,.45);
+  transform: translateY(-1px);
+  img { filter: none; }
+}
+
+/* tamanhos no mobile */
+@media (max-width: 640px) {
+  .thumb { width: 64px; }
+}
+@media (max-width: 380px) {
+  .thumb { width: 56px; }
 }
 
 /* ======== Card dos detalhes ======== */

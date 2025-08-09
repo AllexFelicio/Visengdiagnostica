@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar/Navbar'
 import { Footer } from '../../components/Footer/Footer'
 import styles from './PortfolioDetail.module.scss'
 
-// Asset imports
+// ====== Imports de imagens ======
 import img1 from '../../assets/img1.jpg'
 import img2 from '../../assets/img2.jpg'
 import img3 from '../../assets/img3.jpg'
@@ -42,20 +42,27 @@ import img33 from '../../assets/img33.jpg'
 import img34 from '../../assets/img34.jpg'
 import img35 from '../../assets/img35.jpg'
 import img36 from '../../assets/img36.jpg'
+import img37 from '../../assets/img37.jpg'
+import img38 from '../../assets/img38.jpg'
+import img39 from '../../assets/img39.jpg'
+import img40 from '../../assets/img40.jpg'
+import img41 from '../../assets/img40.jpg'
+import img42 from '../../assets/img41.jpg'
+import img43 from '../../assets/img42.png'
 
 interface Work {
   id: string
-  src: string
   title: string
   details: { label: string; value: string }[]
   description: string[]
+  images: string[]                // <- múltiplas imagens por obra
 }
 
 const works: Work[] = [
   {
     id: 'vizeu-leiloeiro',
-    src: img1,
     title: 'VIZEU LEILOEIRO – Construção de Nova Unidade',
+    images: [img1],
     details: [
       { label: 'Projeto', value: 'Construção de galpão com escritório' },
       { label: 'Cliente', value: 'VIZEU LEILOEIRO' },
@@ -74,8 +81,8 @@ const works: Work[] = [
   },
   {
     id: 'sudameris',
-    src: img2,
     title: 'SUDAMERIS – Acessibilidade Roll Out Integração Banco Real',
+    images: [img2],
     details: [
       { label: 'Projeto', value: 'Roll out Acessibilidade Sudameris' },
       { label: 'Cliente', value: 'Banco Real' },
@@ -92,8 +99,8 @@ const works: Work[] = [
   },
   {
     id: 'tim-telecom',
-    src: img3,
     title: 'TIM – Telefonia Celular em Lojas',
+    images: [img3],
     details: [
       { label: 'Projeto', value: 'Expansão da rede de lojas próprias' },
       { label: 'Cliente', value: 'Confidencial' },
@@ -110,8 +117,8 @@ const works: Work[] = [
   },
   {
     id: 'ricardo-eletro',
-    src: img4,
     title: 'RICARDO ELETRO – 90 Lojas (MG, DF, GO e ES)',
+    images: [img4],
     details: [
       { label: 'Projeto', value: 'Remodelação de 90 lojas' },
       { label: 'Cliente', value: 'Ricardo Eletro' },
@@ -128,8 +135,8 @@ const works: Work[] = [
   },
   {
     id: 'estacaomexico',
-    src: img34,
     title: 'ESTAÇÕES BP MÉXICO – México',
+    images: [img34],
     details: [
       { label: 'Projeto', value: 'BP México – Instalação da operação México' },
       { label: 'Cliente', value: 'GLOBAL ALLIANCE – BP MÉXICO' },
@@ -146,8 +153,8 @@ const works: Work[] = [
   },
   {
     id: 'air-bp',
-    src: img6,
     title: 'AIR BP BRASIL – Cuiabá (MT) e Rio de Janeiro (RJ)',
+    images: [img6],
     details: [
       { label: 'Projeto', value: 'Abertura de Postos de Abastecimento de Aeronaves (PAAs)' },
       { label: 'Cliente', value: 'Air BP Brasil Ltda' },
@@ -164,8 +171,8 @@ const works: Work[] = [
   },
   {
     id: 'shopping-praca-moca',
-    src: img7,
     title: 'SHOPPING PRAÇA DA MOÇA – Diadema, São Paulo',
+    images: [img7],
     details: [
       { label: 'Projeto', value: 'Shopping Praça da Moça' },
       { label: 'Cliente', value: 'EMPREENDI' },
@@ -182,8 +189,8 @@ const works: Work[] = [
   },
   {
     id: 'sao-jose-campos',
-    src: img8,
     title: 'PREFEITURA DE SJC – Canalização de Córrego',
+    images: [img8],
     details: [
       { label: 'Projeto', value: 'Obras de canalização de córrego' },
       { label: 'Cliente', value: 'Prefeitura de São José dos Campos' },
@@ -200,8 +207,8 @@ const works: Work[] = [
   },
   {
     id: 'citibank',
-    src: img9,
     title: 'CITIBANK – Mudança da Imagem Corporativa (Brasil)',
+    images: [img9],
     details: [
       { label: 'Projeto', value: 'Programa de rebranding – Citibank' },
       { label: 'Cliente', value: 'Banco Citibank S.A.' },
@@ -218,8 +225,8 @@ const works: Work[] = [
   },
   {
     id: 'drogasilraia',
-    src: img10,
     title: 'RAIA DROGASIL – Reformas de lojas nos estados de SP, RJ e MS',
+    images: [img10],
     details: [
       { label: 'Projeto', value: 'Reforma Geral de Pontos de Venda' },
       { label: 'Cliente', value: 'RAIA DROGASIL' },
@@ -235,8 +242,8 @@ const works: Work[] = [
   },
   {
     id: 'bancohsbc',
-    src: img11,
     title: 'BANCO HSBC – Adequações de Acessibilidade 2009',
+    images: [img11],
     details: [
       { label: 'Projeto', value: 'HSBC – Adequações de Acessibilidade' },
       { label: 'Cliente', value: 'HSBC' },
@@ -254,8 +261,8 @@ const works: Work[] = [
   },
   {
     id: '3mdobrasil',
-    src: img12,
     title: '3M DO BRASIL – Santander Troca de Comunicação Visual',
+    images: [img12],
     details: [
       { label: 'Projeto', value: 'Troca da Marca Banco Real x Santander' },
       { label: 'Cliente', value: '3M do Brasil' },
@@ -274,8 +281,8 @@ const works: Work[] = [
   },
   {
     id: 'arenamultiuso',
-    src: img13,
     title: 'ARENA MULTIUSO, ESTÁDIO E PARQUE URBANO – Osasco, SP',
+    images: [img13],
     details: [
       { label: 'Projeto', value: 'Arena Multiuso, estádio e parque urbano – Osasco' },
       { label: 'Cliente', value: 'Prefeitura Municipal de Osasco' },
@@ -296,8 +303,8 @@ const works: Work[] = [
   },
   {
     id: 'bancoazteca',
-    src: img14,
     title: 'BANCO AZTECA – Edifício Sede',
+    images: [img14],
     details: [
       { label: 'Projeto', value: 'Edifício Sede' },
       { label: 'Cliente', value: 'Banco Azteca' },
@@ -316,8 +323,8 @@ const works: Work[] = [
   },
   {
     id: 'aztecabanco',
-    src: img15,
     title: 'BANCO AZTECA – Recife',
+    images: [img15],
     details: [
       { label: 'Projeto', value: 'Gerenciamento e projetos completos para o Banco Azteca e lojas Elektra' },
       { label: 'Cliente', value: 'Grupo Elektra' },
@@ -335,8 +342,8 @@ const works: Work[] = [
   },
   {
     id: 'santandertroca',
-    src: img16,
     title: 'SANTANDER – Troca da Marca 2008',
+    images: [img16],
     details: [
       { label: 'Projeto', value: 'Troca da Marca Banco Santander-2008' },
       { label: 'Cliente', value: 'BANCO SANTANDER S/A.' },
@@ -348,15 +355,15 @@ const works: Work[] = [
     description: [
       'A terceira e última fase da atualização da logomarca Santander, finaliza-se com este projeto  que  engloba  todos  os  PV´s dotados da marca “BANCO SANTANDER”',
       'A   atualização   da   logomarca,   envolve ações de comunicação visual externa, interna e remodelação civil, para adequação dos acabamentos padrão da rede Santander, iniciada nas cidades de São Paulo (projeto Cidade Limpa) e Rio de Janeiro, e continuada no Projeto Troca da Marca Banespa.',
-      'Dos 431 Pontos localizadas em território nacional, a DHARO foi responsável por 170, mais especificamente por PV´s localizados nos  estados  de  São  Paulo,  Santa Catarina, Rio de Janeiro, Minas Gerais e Goiás.',
+      'Dos 431 Pontos localizadas em território nacional, a DHARO foi responsável por 170, mais especificamente por PV´s localizados nos  estados  de  São Paulo,  Santa Catarina, Rio de Janeiro, Minas Gerais e Goiás.',
       'O escopo consistiu em visita a cada localidade para levantamento métrico, fotográfico e cadastral das instalações. O estudo de viabilidade e restrição legal destas  localidades  foi  conduzido  por equipe específica e com “expertize” no assunto.',
       'A compilação entre o material de levantamento, as restrições e legislações municipais específicas, resultou em um estudo da nova imagem proposta, que juntamente com os custos análise legal foi submetida à aprovação das áreas envolvidas pelo cliente. Condicionalmente à aprovação do estudo, iniciou-se a fase de projetos executivos detalhados, liberados  para  concorrência  e implantação, monitorada através do gerenciamento  de  campo  aos fornecedores envolvidos no processo.',
     ],
   },
   {
     id: 'vizeu1',
-    src: img17,
     title: 'VIZEU LEILOEIRO – Unidade Diadema',
+    images: [img17],
     details: [
       { label: 'Projeto', value: 'Reforma e Ampliação de Galpão Industrial' },
       { label: 'Cliente', value: 'VIZEU LEILOEIRO.' },
@@ -375,8 +382,8 @@ const works: Work[] = [
   },
   {
     id: 'citibank1',
-    src: img18,
     title: 'CITIBANK – Expansão',
+    images: [img18],
     details: [
       { label: 'Projeto', value: 'Programa de implantação de novas agências' },
       { label: 'Cliente', value: 'Banco Citibank S.A.' },
@@ -393,8 +400,8 @@ const works: Work[] = [
   },
   {
     id: 'santanderrio',
-    src: img19,
     title: 'SANTANDER – Rio de Janeiro',
+    images: [img19],
     details: [
       { label: 'Projeto', value: 'Rio de Janeiro / Reforma Geral' },
       { label: 'Cliente', value: 'BANCO SANTANDER S/A.' },
@@ -413,8 +420,8 @@ const works: Work[] = [
   },
   {
     id: 'santander2',
-    src: img20,
     title: 'SANTANDER – Projeto Acessibilidade 2007',
+    images: [img20],
     details: [
       { label: 'Projeto', value: 'Santander Acessibilidade – 2007' },
       { label: 'Cliente', value: 'BANCO SANTANDER S/A.' },
@@ -436,8 +443,8 @@ const works: Work[] = [
   },
   {
     id: 'santander3',
-    src: img21,
     title: 'SANTANDER – Troca da Marca Banespa 2007',
+    images: [img21],
     details: [
       { label: 'Projeto', value: 'Troca da Marca Banespa-2007' },
       { label: 'Cliente', value: 'BANCO SANTANDER S/A.' },
@@ -457,30 +464,9 @@ const works: Work[] = [
     ],
   },
   {
-    id: 'santander4',
-    src: img22,
-    title: 'SANTANDER – Cidade Limpa',
-    details: [
-      { label: 'Projeto', value: 'Cidade Limpa' },
-      { label: 'Cliente', value: 'BANCO SANTANDER S/A.' },
-      { label: 'Valor gerenciado', value: 'R$ 5.000.000,00' },
-      { label: 'Duração', value: 'Fevereiro/2007 a Novembro/2007' },
-      { label: 'Área', value: '113 Agências localizadas na cidade de São Paulo' },
-      { label: 'Escopo', value: 'Estudo de Viabilidade Técnica legal e Financeira, Fotomontagem, Elaboração de 3D, Projetos Executivos, Gerenciamento da Implantação, Aprovação Legal.' },
-    ],
-    description: [
-      'A primeira fase da atualização da logomarca Santander, ocorreu na cidade de São Paulo.',
-      'Objetivou a implantação da Marca, e o atendimento ao Decreto Municipal 47950 de 5/Dezembro de 2006, que regulamenta a Lei 14223, e que dispõe sobre a ordenação dos elementos que compõem a paisagem urbana do Município de São Paulo, ou comumente denominada: Lei Cidade Limpa.',
-      'De aproximadamente 150 Pontos localizados na cidade de São Paulo, a DHARO foi responsável por 113.',
-      'O escopo consistiu em visita a cada localidade para levantamento métrico, fotográfico e cadastral das instalações. O estudo de viabilidade e restrição legal destas localidades foi conduzido por equipe específica e com “expertise” no assunto.',
-      'A compilação entre o material de levantamento, as restrições e legislações municipais específicas, resultou em um estudo da nova imagem proposta, que juntamente com os custos análise legal foi submetida à aprovação das áreas envolvidas pelo cliente.',
-      'Por se tratar de atendimento a Lei Municipal que definia data limite para regularização, a fase de gerenciamento e execução teve inicio prévio a validação final dos executivos, o que também ocorreu com a questão legal.',
-    ],
-  },
-  {
     id: 'embratel',
-    src: img23,
     title: 'NORTEL TELECOM / EMBRATEL – Estado de São Paulo',
+    images: [img23],
     details: [
       { label: 'Projeto', value: 'Nortel Telecom / Embratel' },
       { label: 'Cliente', value: 'Nortel Networks – Brasil' },
@@ -500,8 +486,8 @@ const works: Work[] = [
   },
   {
     id: 'tam',
-    src: img24,
     title: 'TAM – Troca de Comunicação Visual (Europa, América do Norte e América do Sul)',
+    images: [img24],
     details: [
       { label: 'Projeto', value: 'Troca de comunicação visual' },
       { label: 'Cliente', value: 'TAM' },
@@ -517,8 +503,8 @@ const works: Work[] = [
   },
   {
     id: 'timcentrais',
-    src: img25,
     title: 'TIM – Centrais Operacionais (Território Nacional)',
+    images: [img25],
     details: [
       { label: 'Projeto', value: 'Reformas e Adequações de Edifício das Centrais Operacionais' },
       { label: 'Cliente', value: 'TIM' },
@@ -535,8 +521,8 @@ const works: Work[] = [
   },
   {
     id: 'cummis',
-    src: img26,
     title: 'CUMMINS DO BRASIL – Planta Guarulhos, SP',
+    images: [img26],
     details: [
       { label: 'Projeto', value: 'Obras de adequações' },
       { label: 'Cliente', value: 'CUMMINS DO BRASIL FÁBRICA DE MOTORES' },
@@ -552,8 +538,8 @@ const works: Work[] = [
   },
   {
     id: 'bimbo',
-    src: img27,
     title: 'GRUPO BIMBO – Panificação e Fábricas no Brasil',
+    images: [img27],
     details: [
       { label: 'Projeto', value: 'Obras de Adequações' },
       { label: 'Cliente', value: 'GRUPO BIMBO – PLANTA SÃO PAULO' },
@@ -569,8 +555,8 @@ const works: Work[] = [
   },
   {
     id: 'daerp',
-    src: img28,
     title: 'DAERP – Ribeirão Preto – Saneamento Básico',
+    images: [img28],
     details: [
       { label: 'Projeto', value: 'Obras de Saneamento básico em Ribeirão Preto' },
       { label: 'Cliente', value: 'Departamento de Água e Esgoto de Ribeirão Preto – SP' },
@@ -587,8 +573,8 @@ const works: Work[] = [
   },
   {
     id: 'sanasa',
-    src: img29,
     title: 'SANASA – Campinas, SP – Drenagem de Águas Pluviais',
+    images: [img29],
     details: [
       { label: 'Projeto', value: 'Implantação do Sistema de Captação De Águas Pluviais' },
       { label: 'Cliente', value: 'SANASA Campinas – SP' },
@@ -605,8 +591,8 @@ const works: Work[] = [
   },
   {
     id: 'viracopos',
-    src: img30,
     title: 'AEROPORTOS BRASIL VIRACOPOS – Rede de Esgoto',
+    images: [img30],
     details: [
       { label: 'Projeto', value: 'Rede de Esgoto do Novo Centro de Operações' },
       { label: 'Cliente', value: 'Aeroportos Brasil Viracopos' },
@@ -622,8 +608,8 @@ const works: Work[] = [
   },
   {
     id: 'terrarica',
-    src: img31,
     title: 'LOTEAMENTO JARDIM TERRA RICA – Redes de Esgoto e Água',
+    images: [img31],
     details: [
       { label: 'Projeto', value: 'Construção de rede coletora de esgoto e de distribuição de água' },
       { label: 'Cliente', value: 'Loteamento Jardim Terra Rica' },
@@ -639,8 +625,8 @@ const works: Work[] = [
   },
   {
     id: 'saaeportofeliz',
-    src: img32,
     title: 'SAAE PORTO FELIZ – Esgoto Sanitário',
+    images: [img32],
     details: [
       { label: 'Projeto', value: 'Ampliação do Sistema de Esgoto Sanitário' },
       { label: 'Cliente', value: 'SAAE do Município de Porto Feliz – SP' },
@@ -656,8 +642,8 @@ const works: Work[] = [
   },
   {
     id: 'prefeitura',
-    src: img33,
     title: 'PREFEITURA SJC – Recuperação de Galeria e Pavimentação',
+    images: [img33],
     details: [
       { label: 'Projeto', value: 'Obras de Recuperação de Galeria de AP e Pavimentação na Rod. Pres. Dutra' },
       { label: 'Cliente', value: 'Prefeitura Municipal de São José dos Campos' },
@@ -673,8 +659,8 @@ const works: Work[] = [
   },
   {
     id: 'banco-real',
-    src: img5,
     title: 'BANCO REAL – “Guarda-Chuva” Gerenciamento de Intervenções',
+    images: [img5],
     details: [
       { label: 'Projeto', value: 'ABN – Contrato “Guarda-chuva”' },
       { label: 'Cliente', value: 'Banco Real' },
@@ -692,10 +678,18 @@ const works: Work[] = [
       'Nossas equipes estão preparadas para atender qualquer intervenção em agências, a qualquer tempo, seja para adequações, reformas ou abertura de pontos de venda.',
     ],
   },
+
+  // ====== DUAS ÚLTIMAS OBRAS (com suporte a múltiplas imagens) ======
   {
     id: 'morada-dos-passaros',
-    src: img35,
     title: 'Residência Alto Padrão Sistema Convencional Residencial Morada dos Pássaros – Barueri - SP',
+    images: [
+      img35,
+      img37,
+      img38,
+      img39,
+      img40,
+    ],
     details: [
       { label: 'Projeto', value: 'Residência Alto Padrão Sistema Convencional' },
       { label: 'Cliente', value: 'Pessoa Fisica' },
@@ -704,14 +698,18 @@ const works: Work[] = [
       { label: 'Área', value: 'Área Terreno: 1100 m2 / Área Construída: 750 m2' },
       { label: 'Escopo', value: '' },
     ],
-    description: [
-      '', 
-    ],
+    description: [''],
   },
   {
     id: 'residencial-rivieira',
-    src: img36,
     title: 'Residência Alto Padrão no Sistema Light Steel Frame Riviera de Santa Cristina XIII – Paranapanema - SP',
+    images: [
+      img36,
+      img41,
+      img42,
+      img43,
+
+    ],
     details: [
       { label: 'Projeto', value: 'Residência Alto Padrão no Sistema Light Steel Frame' },
       { label: 'Cliente', value: 'Pessoa Fisica' },
@@ -720,43 +718,51 @@ const works: Work[] = [
       { label: 'Área', value: 'Área Terreno: 450 m2 / Área Construída: 250 m2' },
       { label: 'Escopo', value: '' },
     ],
-    description: [
-     '',
-    ],
+    description: [''],
   },
 ]
+
+// ===============================================
 
 export default function PortfolioDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  // encontra índice inicial com segurança
+  // encontra a obra inicial a partir do id da URL
   const initialIndex = useMemo(
     () => Math.max(0, works.findIndex(w => w.id === id)),
     [id]
   )
-  const [current, setCurrent] = useState<number>(initialIndex >= 0 ? initialIndex : 0)
 
+  const [current, setCurrent] = useState<number>(initialIndex >= 0 ? initialIndex : 0)
+  const [imgIndex, setImgIndex] = useState(0) // índice da imagem dentro da obra
+
+  // se mudar o id na URL, atualiza índice da obra
   useEffect(() => {
     if (initialIndex >= 0) setCurrent(initialIndex)
   }, [initialIndex])
 
+  // ao trocar de obra, volta para a primeira imagem
+  useEffect(() => {
+    setImgIndex(0)
+  }, [current])
+
   const work = works[current]
   if (!work) return <p className={styles.notFound}>Obra não encontrada.</p>
 
-  const prev = () => setCurrent(c => (c - 1 + works.length) % works.length)
-  const next = () => setCurrent(c => (c + 1) % works.length)
+  // navegação entre obras (mantém seu comportamento)
+  const prevWork = () => setCurrent(c => (c - 1 + works.length) % works.length)
+  const nextWork = () => setCurrent(c => (c + 1) % works.length)
 
   // atalhos de teclado
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') prev()
-      if (e.key === 'ArrowRight') next()
+      if (e.key === 'ArrowLeft') prevWork()
+      if (e.key === 'ArrowRight') nextWork()
       if (e.key === 'Escape') navigate(-1)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate])
 
   // título da aba
@@ -787,27 +793,52 @@ export default function PortfolioDetail() {
         </header>
 
         <section className={styles.topSection}>
-          {/* Galeria */}
+          {/* Galeria da obra atual */}
           <div className={styles.imageCard}>
+            {/* setas mudam de OBRA */}
             <button
               data-nav="prev"
               className={styles.navBtn}
-              onClick={prev}
-              aria-label="Anterior"
+              onClick={prevWork}
+              aria-label="Obra anterior"
+              title="Obra anterior"
             >
               ‹
             </button>
 
-            <img src={work.src} alt={work.title} className={styles.image} />
+            <img
+              src={work.images[imgIndex]}
+              alt={`${work.title} — imagem ${imgIndex + 1}`}
+              className={styles.image}
+            />
 
             <button
               data-nav="next"
               className={styles.navBtn}
-              onClick={next}
-              aria-label="Próximo"
+              onClick={nextWork}
+              aria-label="Próxima obra"
+              title="Próxima obra"
             >
               ›
             </button>
+
+            {/* Miniaturas para trocar a imagem DENTRO da obra */}
+            {work.images.length > 1 && (
+              <div className={styles.thumbStrip} role="tablist" aria-label="Mais imagens desta obra">
+                {work.images.map((src, i) => (
+                  <button
+                    key={i}
+                    className={`${styles.thumb} ${i === imgIndex ? styles.active : ''}`}
+                    onClick={() => setImgIndex(i)}
+                    aria-selected={i === imgIndex}
+                    role="tab"
+                    title={`Ver imagem ${i + 1}`}
+                  >
+                    <img src={src} alt={`Miniatura ${i + 1}`} />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Detalhes */}
