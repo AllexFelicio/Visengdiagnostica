@@ -105,7 +105,7 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* ====== ÍCONES DE REDES SOCIAIS ====== */}
+          {/* ===== ÍCONES (DESKTOP) ===== */}
           <div className={styles.socialIcons}>
             <a href="https://www.instagram.com/viseng_diagnostica" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <FiInstagram />
@@ -118,6 +118,7 @@ export function Navbar() {
             </a>
           </div>
 
+          {/* ===== BOTÃO HAMBÚRGUER ===== */}
           <div className={styles.actions}>
             <button
               className={`${styles.toggle} ${open ? styles.open : ''}`}
@@ -130,6 +131,7 @@ export function Navbar() {
           </div>
         </div>
 
+        {/* ===== MENU MOBILE ===== */}
         {open && (
           <nav className={styles.mobileMenu}>
             <a href="/" onClick={handleHomeClick}>Home</a>
@@ -144,6 +146,19 @@ export function Navbar() {
                 </a>
               )
             )}
+
+            {/* ===== ÍCONES NAS VERSÕES MOBILE ===== */}
+            <div className={styles.mobileSocials}>
+              <a href="https://www.instagram.com/viseng_diagnostica" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <FiInstagram />
+              </a>
+              <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <FiYoutube />
+              </a>
+              <a href="https://www.linkedin.com/company/visengdiagnostica" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <FiLinkedin />
+              </a>
+            </div>
           </nav>
         )}
       </div>

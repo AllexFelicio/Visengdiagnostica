@@ -241,3 +241,25 @@
     --logo-scale: 1.58;
   }
 }
+
+/* ===== ÍCONES SOCIAIS NO MENU MOBILE ===== */
+.mobileSocials {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  a {
+    color: #0f172a;
+    font-size: 1.4rem;
+    transition: color 0.25s ease, transform 0.25s ease;
+
+    &:hover {
+      color: #c9a328;
+      transform: translateY(-2px);
+    }
+  }
+}
+

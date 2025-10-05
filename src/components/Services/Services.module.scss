@@ -22,12 +22,14 @@
   border-radius: 4px;
 }
 
+/* ===== GRID DESKTOP ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.8rem;
 }
 
+/* ===== CARD ===== */
 .card {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 16px;
@@ -42,6 +44,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.7rem;
+  min-height: 250px; /* 🔥 mantém altura consistente */
 
   .icon {
     font-size: 2.5rem;
@@ -53,11 +56,7 @@
     color: #0f172a;
     font-size: 1rem;
     font-weight: 600;
-  }
-
-  p {
-    color: #555;
-    font-size: 0.9rem;
+    text-align: center;
   }
 
   .more {
@@ -116,7 +115,6 @@
     text-align: center;
   }
 
-  /* ✅ Linha dourada abaixo do título */
   .modalUnderline {
     width: 80px;
     height: 3px;
@@ -125,7 +123,6 @@
     border-radius: 3px;
   }
 
-  /* ✅ Texto justificado */
   p {
     color: #333;
     margin-bottom: 1rem;
@@ -173,12 +170,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-
-  .cards {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+  position: relative;
 }
 
 .arrow {
@@ -186,15 +178,39 @@
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.3rem;
+  width: 50px;
+  height: 50px;
+  font-size: 1.8rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 
   &:hover {
     background: #c9a328;
     color: #0f172a;
+  }
+
+  /* 🔥 torna as setas sempre centradas verticalmente */
+  @media (max-width: 768px) {
+    position: relative;
+    top: 0;
+    transform: none;
+  }
+}
+
+/* 🔧 Ajuste para o card do carrossel ficar mais uniforme */
+@media (max-width: 768px) {
+  .card {
+    min-width: 260px;
+    min-height: 260px;
+    padding: 1.8rem 1.2rem;
+  }
+
+  .carousel {
+    gap: 0.8rem;
   }
 }
 
