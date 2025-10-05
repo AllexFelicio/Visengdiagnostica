@@ -4,230 +4,240 @@
   --pad: 12px;
 
   /* cores */
-  --ink: #0f172a;      /* preto/quase preto */
+  --ink: #0f172a;
   --muted: #334155;
 
-  /* azul da marca */
-  --cta: #1c78c0;
-  --cta-hover: #165f96;
+  /* gradiente dourado */
+  --cta: linear-gradient(135deg, #FFD700, #C9A328, #B8860B);
+  --cta-hover: #c9c9c9;
 
-  /* logo: espaço reservado x crescimento visual + teto */
-  --logo-slot: 64px;   /* altura usada no layout (não altera o navbar) */
-  --logo-scale: 1.20;  /* quanto a logo cresce visualmente */
-  --logo-cap: 92px;    /* ALTURA VISUAL MÁXIMA da logo */
+  /* logo: proporções visuais */
+  --logo-slot: 90px;
+  --logo-scale: 1.20;
+  --logo-cap: 130px;
 }
 
-/* Header fixo */
+/* ===== HEADER FIXO ===== */
 .header {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: var(--pad);
   background: transparent;
   z-index: 1000;
-  transition: padding .2s ease;
+  transition: padding 0.2s ease;
 }
-.scrolled { padding: 8px 12px; }
 
-.inner { max-width: min(var(--nav-w), 100%); margin: 0 auto; }
+.scrolled {
+  padding: 8px 12px;
+}
 
-/* Card branco */
+.inner {
+  max-width: min(var(--nav-w), 100%);
+  margin: 0 auto;
+}
+
+/* ===== CARD BRANCO ===== */
 .bar {
   background: #fff;
   color: var(--ink);
   border-radius: 18px;
-  box-shadow: 0 16px 40px rgba(0,0,0,.25);
-  padding: 12px 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  padding: 10px 22px;
 
-  display: grid;
-  grid-template-columns: auto 1fr auto; /* logo | (links) | ações */
+  display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: space-between;
+  gap: 24px;
 
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
 }
 
-/* ===== Logo com “teto” de altura visual ===== */
+/* ===== LOGO ===== */
 .brand {
-  display: inline-block;
-  grid-column: 1 / 2;
-
-  /* reserva de espaço no layout */
-  height: var(--logo-slot);
-  display: grid;
+  display: flex;
   align-items: center;
+  height: var(--logo-slot);
 }
 
 .logo {
-  /* Garante que (altura_real * scale) nunca ultrapasse --logo-cap */
   height: min(var(--logo-slot), calc(var(--logo-cap) / var(--logo-scale)));
   width: auto;
   display: block;
-
   transform: scale(var(--logo-scale));
   transform-origin: left center;
   will-change: transform;
 }
 
-.navLinks { grid-column: 2 / 3; }
-.actions  { grid-column: 3 / 4; justify-self: end; }
-
-/* Links desktop */
+/* ===== LINKS ===== */
 .navLinks {
-  display: none;
+  display: flex;
   justify-content: center;
-  gap: 26px;
-}
-.link {
-  text-decoration: none;
-  color: var(--ink);
-  font-weight: 600;
-  letter-spacing: .2px;
-  opacity: 1;
-  transition: color .15s ease, opacity .15s ease;
-}
-.link:hover { color: #0b2d4a; }
+  flex: 1;
+  gap: 30px;
 
-/* Ações à direita */
-.actions {
+  a {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #c9a328;
+    }
+  }
+
+  @media (max-width: 959px) {
+    display: none;
+  }
+}
+
+/* ===== ÍCONES DE REDES SOCIAIS ===== */
+.socialIcons {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: flex-end;
+  gap: 14px;
+  min-width: 100px;
+  margin-left: auto;
+
+  a {
+    color: #0f172a;
+    font-size: 1.25rem;
+    transition: color 0.25s ease, transform 0.25s ease;
+
+    &:hover {
+      color: #c9a328;
+      transform: translateY(-2px);
+    }
+  }
+
+  @media (max-width: 960px) {
+    display: none;
+  }
 }
 
-/* CTA – escondido no mobile, visível no desktop */
-.cta {
-  display: none; /* mobile */
-  background: var(--cta);
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 600;
-  box-shadow: 0 6px 18px rgba(28,120,192,.35);
-  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
-}
-.cta:hover {
-  background: var(--cta-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(28,120,192,.45);
-}
-
-/* ===== Hambúrguer preto com animação ===== */
+/* ===== BOTÃO HAMBÚRGUER ===== */
 .toggle {
-  color: #000 !important;   /* sempre preto */
-  opacity: 1 !important;
-  filter: none !important;
-  text-shadow: none !important;
-  mix-blend-mode: normal !important;
-
   display: inline-grid;
   place-items: center;
   background: transparent;
   border: none;
+  color: #000;
   font-size: 22px;
   line-height: 1;
   padding: 8px;
   cursor: pointer;
+
+  @media (min-width: 960px) {
+    display: none;
+  }
 }
 
-/* 3 barrinhas em CSS usando currentColor */
 .bars {
   display: block;
   position: relative;
   width: 24px;
   height: 2px;
   border-radius: 2px;
-  background: currentColor !important;
-  transition: transform .22s ease, background .22s ease, opacity .22s ease;
-}
-.bars::before,
-.bars::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  height: 2px;
-  border-radius: 2px;
-  background: currentColor !important;
-  transition: transform .22s ease, opacity .22s ease;
-}
-.bars::before { transform: translateY(-6px); }
-.bars::after  { transform: translateY( 6px); }
+  background: currentColor;
+  transition: transform 0.22s ease, background 0.22s ease, opacity 0.22s ease;
 
-/* Vira “X” quando o menu está aberto */
-.open .bars { background: transparent !important; }
-.open .bars::before { transform: translateY(0) rotate(45deg); }
-.open .bars::after  { transform: translateY(0) rotate(-45deg); }
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.22s ease, opacity 0.22s ease;
+  }
 
-/* Menu mobile dropdown + animação de entrada */
+  &::before {
+    transform: translateY(-6px);
+  }
+
+  &::after {
+    transform: translateY(6px);
+  }
+}
+
+.open .bars {
+  background: transparent;
+
+  &::before {
+    transform: translateY(0) rotate(45deg);
+  }
+
+  &::after {
+    transform: translateY(0) rotate(-45deg);
+  }
+}
+
+/* ===== MENU MOBILE ===== */
 .mobileMenu {
   margin-top: 8px;
   background: #fff;
   color: var(--ink);
   border-radius: 14px;
-  box-shadow: 0 12px 26px rgba(0,0,0,.22);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
   padding: 12px 14px;
   display: grid;
   gap: 8px;
-
   opacity: 0;
-  transform: translateY(-8px) scaleY(.98);
+  transform: translateY(-8px) scaleY(0.98);
   transform-origin: top;
-  animation: menu-in .18s ease forwards;
+  animation: menu-in 0.18s ease forwards;
 }
-@keyframes menu-in { to { opacity: 1; transform: none; } }
 
-/* Links do mobile – preto garantido */
+@keyframes menu-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .mobileMenu a {
   display: block;
   text-decoration: none;
   color: #414141 !important;
-  opacity: 1 !important;
-  text-shadow: none !important;
   font-weight: 600;
   padding: 10px 8px;
   border-radius: 10px;
-}
-.mobileMenu a:hover { background: rgba(0,0,0,.04); }
 
-.mobileCta {
-  margin-top: 6px;
-  background: var(--cta);
-  color: #fff !important;
-  text-align: center;
-  font-weight: 700 !important;
-  padding: 10px 12px;
-  border-radius: 10px;
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
 }
 
-/* ===== Responsivo ===== */
-@media (min-width: 960px) {
-  .navLinks { display: flex; }
-  .toggle   { display: none; }              /* esconde o hambúrguer no desktop */
-  .mobileMenu { display: none !important; }
-  .cta { display: inline-block; }           /* desktop: mostra o CTA */
-}
-
-/* Ajustes mobile + escalas da logo */
+/* ===== RESPONSIVO ===== */
 @media (max-width: 959px) {
-  .toggle { margin-left: 10px; } /* dá um respiro da logo */
-  .brand { --logo-scale: 1.35; } /* cresce no tablet/landscape */
-}
-@media (max-width: 640px) {
-  .brand { --logo-scale: 1.48; }
-}
-@media (max-width: 460px) {
-  .brand { --logo-scale: 1.58; }
+  .toggle {
+    margin-left: 10px;
+  }
+
+  .brand {
+    --logo-scale: 1.35;
+  }
+
+  .socialIcons {
+    display: none;
+  }
 }
 
-/* Garantia extra de cor escura nos links do card */
-.bar a,
-.navLinks a,
-.navLinks a:link,
-.navLinks a:visited {
-  color: #0a0a0a !important;
-  opacity: 1 !important;
-  text-shadow: none !important;
-  mix-blend-mode: normal !important;
-  filter: none !important;
+@media (max-width: 640px) {
+  .brand {
+    --logo-scale: 1.48;
+  }
+}
+
+@media (max-width: 460px) {
+  .brand {
+    --logo-scale: 1.58;
+  }
 }

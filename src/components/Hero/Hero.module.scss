@@ -1,66 +1,116 @@
 @use '../../styles/variables' as *;
 
-/* ocupa praticamente a tela toda, descontando o navbar fixo */
 .hero {
-  /* compensa o navbar: var(--nav-h) + 2*padding do header (12px) */
-  min-height: calc(110svh - (var(--nav-h, 76px)));
-  /* evita “pular” quando navegar por âncora */
-  scroll-margin-top: calc(var(--nav-h, 76px) + 24px);
+  /* 🔥 Ocupa toda a tela visível */
+  min-height: 100vh;
+  height: 100svh; /* suporte mobile moderno */
+  width: 100%;
+
+  scroll-snap-align: start;
+  scroll-margin-top: 0;
 
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 
+  /* 🔥 Garante que a imagem cobre toda a área */
+  background-image: url('../../assets/backgroud.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* opcional: cria leve efeito parallax */
+
   padding: clamp(24px, 5vw, 48px) 16px;
 
-  background-image: url('../../assets/iStock-801650116.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  /* overlay pra dar contraste no texto */
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.35) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+    z-index: 0;
   }
 }
 
 .content {
-  position: relative; /* fica acima do overlay */
+  position: relative;
   z-index: 1;
   text-align: center;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-
-  gap: 1.25rem;
+  justify-content: center; /* 🔥 centraliza verticalmente o conteúdo */
+  gap: 1rem;
+  max-width: 950px;
+  margin: 0 auto;
 }
 
+/* Logo */
+.logo {
+  max-width: 200px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+
+  @media (min-width: 992px) {
+    max-width: 240px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* ===== Título principal ===== */
 .title {
-  /* maior em telas grandes, mas sem exageros */
-  font-size: clamp(2rem, 1.2rem + 2.8vw, 3.2rem);
-  line-height: 1.15;
+  font-size: clamp(1.2rem, 0.9rem + 1.6vw, 1.8rem);
+  line-height: 1.45;
+  margin: 0.5rem 0 1.2rem;
   color: #fff;
-  margin: 0 0 0.5rem;
-  text-shadow: 0 2px 18px rgba(0,0,0,.35);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+  text-align: justify;
+  text-justify: inter-word;
+  animation: fadeInUp 1s ease both;
 }
 
+/* Botão WhatsApp */
 .button {
-  background: var(--color-primary);
+  background: #25D366;
   color: #fff;
-  padding: 0.9rem 1.6rem;
+  padding: 0.9rem 1.8rem;
   border-radius: 0.5rem;
   text-decoration: none;
   font-weight: 600;
-  transition: transform .12s ease, filter .12s ease;
-  will-change: transform, filter;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 
-  &:hover   { transform: translateY(-1px); filter: brightness(.95); }
-  &:active  { transform: translateY(0);     filter: brightness(.9);  }
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ===== Animações ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }

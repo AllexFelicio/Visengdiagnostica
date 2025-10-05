@@ -1,0 +1,25 @@
+@use '../../styles/variables' as *;
+
+.coverageSection {
+  background: #ffffff;
+  padding: 3rem 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
+}
+
+.text {
+  font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem);
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+  }
+}

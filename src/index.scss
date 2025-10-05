@@ -12,12 +12,12 @@ html {
 }
 
 :root {
-  --color-primary: #165f96;  
+  --color-primary: linear-gradient(135deg, #FFD700, #C9A328, #B8860B); 
   --font-sans: 'Inter', sans-serif;
 }
 
 body {
   font-family: var(--font-sans);
-  background: #000;   /* fundo preto */
+  background: #ffffff;
   color: #fff;        /* texto branco */
 }

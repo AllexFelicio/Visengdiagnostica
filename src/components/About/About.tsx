@@ -1,36 +1,53 @@
 import styles from './About.module.scss'
+import profileImg from '../../assets/louise.jfif'
+import { FiCheckCircle } from 'react-icons/fi'
 
 export function About() {
+  const highlights = [
+    'Atendimento personalizado',
+    'Segurança técnica e tranquilidade jurídica',
+    'Conformidade com as Normas ABNT',
+    'Apoio e acompanhamento técnico especializado para Síndicos e Administradoras'
+  ]
+
   return (
     <section id="sobre" className={styles.aboutSection}>
-      {/* fundo com glow */}
-      <div className={styles.bgFx} aria-hidden="true" />
-
       <div className={styles.inner}>
-        <div className={styles.panel}>
-          {/* Título no mesmo padrão das outras seções */}
-          <h2 className={styles.title}>Quem Somos</h2>
-
+        <div className={styles.grid}>
           <div className={styles.copy}>
-            <p>
-              A Steel Side é uma empresa de engenharia fundada em 2005 para atuar na área
-              de projeto e gerenciamento de obras no território nacional e toda América do Sul.
+            <h2 className={styles.title}>Quem somos nós</h2>
+
+            <p className={styles.description}>
+              A <strong>Viseng Diagnóstica</strong> tem o propósito de proteger e valorizar patrimônios
+              através do <strong>gerenciamento de obras</strong> e da <strong>Engenharia Diagnóstica</strong>.
+              Rumo à liderança nacional em <strong>patologia das construções</strong> e
+              <strong> gerenciamento de obras</strong>, transformando o padrão técnico do setor com
+              segurança, inovação e confiabilidade.
             </p>
-            <p>
-              Ao longo dos anos, prestando serviços na área corporativa, foi se destacando
-              pela eficiência em seus processos de gestão de custos, prazos e qualidade na
-              execução de obras.
+
+            {/* Parágrafo separado e justificado */}
+            <p className={styles.description}>
+              Engenheira civil formada pela <strong>FACENS</strong>, com vasta experiência em obras
+              de alto padrão em condomínios residenciais como <strong>Fazenda Boa Vista</strong>,
+              <strong> Fazenda da Grama</strong> e <strong>Residencial Morada dos Pássaros</strong>.
             </p>
-            <p>
-              Em meados de 2007, além de sua atuação em obras de empresas como Banco Santander,
-              HSBC, Latam, TIM, Droga Raia, 3M do Brasil entre outros, a empresa incorporou em seu
-              portfólio a construção de residências de alto padrão nas regiões de São Paulo, Campinas,
-              Ribeirão Preto e Sorocaba.
-            </p>
-            <p>
-              Hoje a empresa tem know how comprovado e estrutura organizacional para atuar tanto nas
-              áreas residenciais, como industriais e corporativas, inclusive com a utilização do sistema
-              LIGHT STEEL FRAME, que vem se tornando o método construtivo mais eficiente e vantajoso do mercado.
+
+            <ul className={styles.list}>
+              {highlights.map((item, i) => (
+                <li key={i}>
+                  <FiCheckCircle className={styles.icon} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.card}>
+            <img src={profileImg} alt="Louise de Paula" className={styles.photo} />
+            <h3 className={styles.name}>Louise de Paula</h3>
+            <p className={styles.role}>Engenheira Civil – CEO</p>
+            <p className={styles.specialty}>
+              Especialista em gerenciamento de obras e em patologia e manutenção das construções
             </p>
           </div>
         </div>

@@ -1,109 +1,134 @@
 @use '../../styles/variables' as *;
 
 .benefitsSection {
-  background: #000;
-  color: #fff;
+  position: relative; /* necessário pra posicionar a animação */
   padding: 4rem 2rem;
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
+  text-align: center;
+  overflow: hidden; /* garante que a animação não ultrapasse */
 }
 
 .title {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+
+  span {
+    color: #c9a328;
+  }
 }
 
-.intro {
-  text-align: center;
-  color: #ccc;
-  margin-bottom: 2.5rem;
-  line-height: 1.6;
+.underline {
+  width: 80px;
+  height: 4px;
+  background: #c9a328;
+  margin: 0.75rem auto 2.5rem auto;
+  border-radius: 2px;
 }
 
-.accordion {
-  border-top: 1px solid #333;
-}
-
-.item {
-  border-bottom: 1px solid #333;
-}
-
-.header {
+/* GRID PRINCIPAL */
+.grid {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  cursor: pointer;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-  h3 {
-    font-size: 1.25rem;
-    margin: 0;
-  }
+/* CARD BASE */
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #f5f6f7;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  text-align: left;
+  font-size: 1rem;
+  color: #1e293b;
+  line-height: 1.5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 30%;
+  min-width: 300px;
+  max-width: 320px;
 
-  .icon {
-    transition: transform 0.3s ease;
-    &.open {
-      transform: rotate(180deg);
-    }
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    background: #fff;
   }
 }
 
-.panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease;
-  padding-left: 1rem;
+/* PRIMEIRA LINHA (3 cards) */
+.card:nth-child(-n + 3) {
+  flex: 1 1 calc(33.333% - 1.5rem);
+}
 
-  &.open {
-    max-height: 200px; /* ajuste conforme o conteúdo */
+/* SEGUNDA LINHA (2 cards centralizados) */
+.card:nth-child(4),
+.card:nth-child(5) {
+  flex: 1 1 calc(33.333% - 1.5rem);
+}
+
+/* CENTRALIZA OS DOIS ÚLTIMOS */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 992px) {
+  .card {
+    width: 45%;
   }
 
-  p {
-    margin: 0.5rem 0 1rem;
-    line-height: 1.6;
+  .grid .card:nth-child(4) {
+    margin-left: 0;
   }
 }
 
-/* ===== Animações de rolagem (Benefits) ===== */
-@media (prefers-reduced-motion: no-preference) {
-  /* cada item dá um leve flip e aparece */
-  .item {
-    opacity: 0;
-    transform-origin: top center;
-    transform: translateY(12px) rotateX(7deg) scale(.985);
-    filter: saturate(.9) brightness(.98);
-    animation: bnf-stack 700ms cubic-bezier(.22,.61,.36,1) both;
-    animation-timeline: view();
-    animation-range: entry 15% cover 30%;
-    will-change: transform, opacity, filter;
+@media (max-width: 640px) {
+  .card {
+    width: 100%;
   }
-  @keyframes bnf-stack { to { opacity: 1; transform: none; filter: none; } }
+}
 
-  /* título com “varredura” de linha quando entra na tela */
-  .header {
-    position: relative;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    left: 0; bottom: 0;
-    height: 2px;
-    width: 0%;
-    background: linear-gradient(90deg, transparent, #1c78c0 40%, transparent 90%);
-    animation: sweep 700ms ease both;
-    animation-timeline: view();
-    animation-range: entry 20% cover 30%;
-  }
-  @keyframes sweep { to { width: 100%; } }
+.icon {
+  flex-shrink: 0;
+  font-size: 1.6rem;
+  color: #c9a328;
+  margin-top: 0.2rem;
+}
 
-  /* ícone dá um popzinho quando o item entra */
-  .header .icon {
-    transform: translateY(4px) scale(.96);
-    opacity: .85;
-    animation: icon-pop 500ms ease both;
-    animation-timeline: view();
-    animation-range: entry 15% cover 25%;
+/* ===== 🎞️ ANIMAÇÃO NO CANTO INFERIOR DIREITO ===== */
+.animationWrapper {
+  position: absolute;
+  bottom: 10px; /* antes era -40px */
+  right: 10px;  /* antes era -40px */
+  width: 220px; /* um pouco maior pra dar mais destaque */
+  opacity: 0.7;
+  pointer-events: none;
+  animation: float 6s ease-in-out infinite;
+
+  @media (max-width: 768px) {
+    width: 140px;
+    bottom: 0px;
+    right: 10px;
+    opacity: 0.5;
   }
-  @keyframes icon-pop { to { transform: none; opacity: 1; } }
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* movimento sutil pra animação “flutuar” */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }

@@ -5,7 +5,7 @@ export function WhatsAppButton() {
   return (
     <a
       className={styles.whatsapp}
-      href="https://wa.me/5511955904747"
+      href="https://wa.me/5515981394994"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chamar no WhatsApp"

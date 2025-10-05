@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { FiInstagram, FiYoutube, FiLinkedin } from 'react-icons/fi'
 import styles from './Navbar.module.scss'
 import logo from '../../assets/logo2.png'
 
@@ -19,7 +20,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Scroll suave com offset do navbar
   const scrollToHash = (hash: string) => {
     const id = decodeURIComponent(hash.replace('#', ''))
     const el = document.getElementById(id)
@@ -29,7 +29,6 @@ export function Navbar() {
     window.scrollTo({ top: y, behavior: 'smooth' })
   }
 
-  // Clique em Inicio: sempre volta pro topo
   const handleHomeClick = (e?: React.MouseEvent) => {
     e?.preventDefault?.()
     setOpen(false)
@@ -46,7 +45,6 @@ export function Navbar() {
     }
   }
 
-  // Clique em links com hash (Sobre, Benefícios, Serviços, Contato…)
   const handleHashClick = (to: string) => (e: React.MouseEvent) => {
     e.preventDefault()
     setOpen(false)
@@ -70,30 +68,28 @@ export function Navbar() {
   }
 
   const links: NavItem[] = [
-    { label: 'Inicio',     to: '/',            type: 'route' },
-    { label: 'Quem Somos',      to: '/#sobre',      type: 'hash'  },
-    { label: 'Serviços', to: '/#serviços', type: 'hash'  },
-    { label: 'Portfólio',  to: '/portfolio',   type: 'route' },
-    { label: 'Benefícios',   to: '/#benefícios',   type: 'hash'  },
-    { label: 'Contato',    to: '/#contato',    type: 'hash'  },
+    { label: 'Home', to: '/', type: 'route' },
+    { label: 'Serviços', to: '/#serviços', type: 'hash' },
+    { label: 'Sou síndico', to: '/#serviços', type: 'hash' },
+    { label: 'Vantagens', to: '/#beneficios', type: 'hash' },
+    { label: 'Sobre', to: '/#sobre', type: 'hash' },
+    { label: 'Contato', to: '/#contato', type: 'hash' },
   ]
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.inner}>
         <div className={styles.bar}>
-          {/* Logo → também volta pro topo */}
-          <a href="/" className={styles.brand} aria-label="Inicio" onClick={handleHomeClick}>
-            <img src={logo} alt="Steelside" className={styles.logo} />
+          <a href="/" className={styles.brand} aria-label="Home" onClick={handleHomeClick}>
+            <img src={logo} alt="Viseng" className={styles.logo} />
           </a>
 
-          {/* Links desktop */}
           <nav className={styles.navLinks}>
             {links.map(link => {
-              if (link.label === 'Inicio') {
+              if (link.label === 'Home') {
                 return (
-                  <a key="Inicio" href="/" className={styles.link} onClick={handleHomeClick}>
-                    Inicio
+                  <a key="Home" href="/" className={styles.link} onClick={handleHomeClick}>
+                    Home
                   </a>
                 )
               }
@@ -109,13 +105,20 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Ações */}
-          <div className={styles.actions}>
-            <a href="/#contato" className={styles.cta} onClick={handleHashClick('/#contato')}>
-              Entrar em Contato
+          {/* ====== ÍCONES DE REDES SOCIAIS ====== */}
+          <div className={styles.socialIcons}>
+            <a href="https://www.instagram.com/viseng_diagnostica" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <FiInstagram />
             </a>
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <FiYoutube />
+            </a>
+            <a href="https://www.linkedin.com/company/visengdiagnostica" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <FiLinkedin />
+            </a>
+          </div>
 
-            {/* Botão hambúrguer animado */}
+          <div className={styles.actions}>
             <button
               className={`${styles.toggle} ${open ? styles.open : ''}`}
               onClick={() => setOpen(o => !o)}
@@ -127,14 +130,10 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Menu mobile */}
         {open && (
           <nav className={styles.mobileMenu}>
-            {/* Inicio no mobile */}
-            <a href="/" onClick={handleHomeClick}>Inicio</a>
-
-            {/* Demais links */}
-            {links.filter(l => l.label !== 'Inicio').map(link =>
+            <a href="/" onClick={handleHomeClick}>Home</a>
+            {links.filter(l => l.label !== 'Home').map(link =>
               link.type === 'route' ? (
                 <Link key={link.label} to={link.to} onClick={() => setOpen(false)}>
                   {link.label}
@@ -145,9 +144,6 @@ export function Navbar() {
                 </a>
               )
             )}
-            <a href="/#contato" className={styles.mobileCta} onClick={handleHashClick('/#contato')}>
-              Entrar em Contato
-            </a>
           </nav>
         )}
       </div>
