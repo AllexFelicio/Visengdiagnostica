@@ -70,7 +70,7 @@ export function Navbar() {
   const links: NavItem[] = [
     { label: 'Home', to: '/', type: 'route' },
     { label: 'Serviços', to: '/#serviços', type: 'hash' },
-    { label: 'Sou síndico', to: '/#serviços', type: 'hash' },
+    { label: 'Sou síndico', to: '/#sindicos', type: 'hash' },
     { label: 'Vantagens', to: '/#beneficios', type: 'hash' },
     { label: 'Sobre', to: '/#sobre', type: 'hash' },
     { label: 'Contato', to: '/#contato', type: 'hash' },
@@ -110,10 +110,10 @@ export function Navbar() {
             <a href="https://www.instagram.com/viseng_diagnostica" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <FiInstagram />
             </a>
-            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <a href="https://www.youtube.com/@engenheiralouisedepaula" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
               <FiYoutube />
             </a>
-            <a href="https://www.linkedin.com/company/visengdiagnostica" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/viseng-diagnóstica/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <FiLinkedin />
             </a>
           </div>

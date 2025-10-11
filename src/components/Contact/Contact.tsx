@@ -36,10 +36,10 @@ export function Contact() {
             </li>
             <li>
               <a
-                href="mailto:engenharia@visengdiagnostica.com.br"
+                href="mailto:louise@visengdiagnostica.com.br"
                 className={styles.link}
               >
-                <FiMail className={styles.icon} /> engenharia@visengdiagnostica.com.br
+                <FiMail className={styles.icon} /> louise@visengdiagnostica.com.br
               </a>
             </li>
           </ul>

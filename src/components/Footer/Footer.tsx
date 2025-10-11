@@ -6,7 +6,7 @@ export function Footer() {
       <p>&copy; {new Date().getFullYear()} Viseng. Todos os direitos reservados.</p>
       <p>
         Desenvolvido por{' '}
-        <a href="https://steelside.com.br" target="_blank" rel="noopener noreferrer">
+        <a href="https://visengdiagnostica.com.br" target="_blank" rel="noopener noreferrer">
           AF Tecnologia
         </a>
       </p>

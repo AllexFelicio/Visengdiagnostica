@@ -1,0 +1,130 @@
+.problemas {
+  background: #f5f5f5;
+  padding: 1rem 0.5rem 2.5rem;
+  text-align: center;
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+
+    span {
+      color: #c9a328;
+    }
+  }
+
+  .carousel {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .slide {
+  position: relative;
+  padding: 0 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(4px);
+  }
+
+  img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid transparent; /* base */
+    background: linear-gradient(#fff, #fff) padding-box,
+      linear-gradient(135deg, #c9a328, #e3d188) border-box; /* brilho dourado */
+    transition: all 0.3s ease;
+
+    &:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+      border: 3px solid #c9a328;
+    }
+  }
+
+  p {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    backdrop-filter: blur(2px);
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: rgba(201, 163, 40, 0.9);
+    }
+  }
+}
+
+
+  /* ===== SETAS ===== */
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    color: #c9a328;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+
+    &:hover {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.15);
+    }
+  }
+
+  .prev {
+    left: -25px;
+  }
+
+  .next {
+    right: -25px;
+  }
+
+  /* remove interferência padrão do slick */
+  :global(.slick-prev:before),
+  :global(.slick-next:before) {
+    content: '';
+  }
+
+  /* ===== LINHA DIVISÓRIA ===== */
+  .divider {
+    width: 500px;
+    height: 3px;
+    background: #c9a328;
+    border-radius: 2px;
+    margin: 2rem auto 0;
+  }
+
+  @media (max-width: 768px) {
+    .slide img {
+      height: 120px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    .arrow {
+      font-size: 1.6rem;
+      left: -10px;
+      right: -10px;
+    }
+
+    .divider {
+      margin-top: 1.5rem;
+    }
+  }
+}

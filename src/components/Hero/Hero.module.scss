@@ -114,3 +114,55 @@
     transform: none;
   }
 }
+/* ===== CARROSSEL INTERNO ===== */
+.carousel {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 2rem;
+  z-index: 2;
+
+  .slide {
+    position: relative;
+    padding: 0 8px;
+
+    img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+
+    p {
+      position: absolute;
+      bottom: 8px;
+      left: 10px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  }
+
+  /* slick dots customizados */
+  .slick-dots {
+    bottom: -25px;
+  }
+
+  .slick-dots li button:before {
+    color: #c9a328;
+    opacity: 0.6;
+  }
+
+  .slick-dots li.slick-active button:before {
+    color: #c9a328;
+    opacity: 1;
+  }
+}
