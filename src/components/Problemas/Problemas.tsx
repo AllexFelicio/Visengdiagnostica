@@ -44,27 +44,27 @@ export function Problemas() {
         <Slider {...settings}>
           <div className={styles.slide}>
             <img src={img1} alt="Deslocamento de revestimento" />
-            <p>Deslocamento de revestimento</p>
-          </div>
-          <div className={styles.slide}>
-            <img src={img2} alt="Umidade ascendente" />
             <p>Umidade ascendente</p>
           </div>
           <div className={styles.slide}>
+            <img src={img2} alt="Umidade ascendente" />
+            <p>Corrosão das armaduras</p>
+          </div>
+          <div className={styles.slide}>
             <img src={img3} alt="Trinca em fachada" />
-            <p>Trinca em fachada</p>
+            <p>Trinca na parede</p>
           </div>
           <div className={styles.slide}>
             <img src={img4} alt="Mancha de bolor" />
-            <p>Mancha de bolor</p>
+            <p>Mancha de umidade e bolor</p>
           </div>
           <div className={styles.slide}>
             <img src={img5} alt="Infiltração em laje" />
-            <p>Infiltração em laje</p>
+            <p>Desplacamento de revestimento</p>
           </div>
           <div className={styles.slide}>
             <img src={img6} alt="Fissura estrutural" />
-            <p>Fissura estrutural</p>
+            <p>Desplacamento cerâmico</p>
           </div>
         </Slider>
       </div>

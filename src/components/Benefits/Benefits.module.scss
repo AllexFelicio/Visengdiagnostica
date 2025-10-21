@@ -109,15 +109,15 @@
   position: absolute;
   bottom: 10px; /* antes era -40px */
   right: 10px;  /* antes era -40px */
-  width: 220px; /* um pouco maior pra dar mais destaque */
+  width: 200px; /* um pouco maior pra dar mais destaque */
   opacity: 0.7;
   pointer-events: none;
   animation: float 6s ease-in-out infinite;
 
   @media (max-width: 768px) {
-    width: 140px;
-    bottom: 0px;
-    right: 10px;
+    width: 100px;
+    bottom: -25px;
+    right: 2px;
     opacity: 0.5;
   }
 
